@@ -5,7 +5,7 @@ api-version: '1.21'
 load: POSTWORLD
 prefix: 【qwq-flytre-bingo-booster】
 authors: [ VincentZyu ]
-description: Spigot plugin for Flytre Bingo — team color dyeing & sidebar display
+description: 🎯👥🎨📊⚡ Flytre Bingo booster, server side plugin： team name dyeing + scoreboard sidebar
 website: https://github.com/VincentZyuApps
 folia-supported: true
 

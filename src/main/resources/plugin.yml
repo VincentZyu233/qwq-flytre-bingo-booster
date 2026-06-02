@@ -11,7 +11,7 @@ folia-supported: true
 
 commands:
   qwq_set_scheduled_team_color_dye:
-    description: 给flytre那个bingo地图用的，根据team给玩家名字染色并加上前缀
+    description: 根据team属性给玩家名字染色并加上前缀
     usage: /qwq_set_scheduled_team_color_dye <true/false>
   qwq_bingo_sidebar:
     description: 显示bingo队伍侧边栏

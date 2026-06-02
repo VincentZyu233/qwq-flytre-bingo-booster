@@ -14,7 +14,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
     override fun onEnable() {
         saveDefaultConfig()
         reloadConfig()
-        val logLevelStr = config.getString("log_level", "info")
+        val logLevelStr = config.getString("log_level", "info") ?: "info"
         PluginLogger.level = LogLevel.fromString(logLevelStr)
         PluginLogger.info("配置加载完成，日志级别: ${PluginLogger.level.name.lowercase()}")
 

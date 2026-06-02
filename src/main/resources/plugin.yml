@@ -1,0 +1,18 @@
+name: qwq-flytre-bingo-booster
+version: '${version}'
+main: qwq.zyu.qwqFlytreBingoBooster.QwqFlytreBingoBooster
+api-version: '1.21'
+load: POSTWORLD
+prefix: 【qwq-flytre-bingo-booster】
+authors: [ VincentZyu ]
+description: Spigot plugin for Flytre Bingo — team color dyeing & sidebar display
+website: https://github.com/VincentZyuApps
+folia-supported: true
+
+commands:
+  qwq_set_scheduled_team_color_dye:
+    description: 给flytre那个bingo地图用的，根据team给玩家名字染色并加上前缀
+    usage: /qwq_set_scheduled_team_color_dye <true/false>
+  qwq_bingo_sidebar:
+    description: 显示bingo队伍侧边栏
+    usage: /qwq_bingo_sidebar <true/false>

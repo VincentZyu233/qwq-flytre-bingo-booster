@@ -1,0 +1,168 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [main, for-*]
+  pull_request:
+    branches: [main, for-*]
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    name: Check commit message
+    runs-on: ubuntu-latest
+    outputs:
+      should_build: ${{ steps.flags.outputs.should_build }}
+      should_release: ${{ steps.flags.outputs.should_release }}
+      version: ${{ steps.flags.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Parse commit message
+        id: flags
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          MSG="$COMMIT_MSG"
+
+          VERSION="v$(grep '^version' build.gradle.kts | head -1 | sed "s/.*\"\(.*\)\".*/\1/")"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "📦 Version: $VERSION"
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "should_build=true"    >> "$GITHUB_OUTPUT"
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          BUILD=false
+          RELEASE=false
+
+          if echo "$MSG" | grep -qi "build release"; then
+            BUILD=true
+            RELEASE=true
+          elif echo "$MSG" | grep -qi "build action"; then
+            BUILD=true
+          fi
+
+          echo "should_build=$BUILD"     >> "$GITHUB_OUTPUT"
+          echo "should_release=$RELEASE" >> "$GITHUB_OUTPUT"
+
+          echo "📋 Flags: build=$BUILD release=$RELEASE"
+
+  build:
+    name: Build plugin JAR
+    needs: check
+    if: needs.check.outputs.should_build == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Prepare artifact
+        run: |
+          VERSION="${{ needs.check.outputs.version }}"
+          JAR_FILE=$(ls build/libs/*-all.jar | head -1)
+          ASSET_NAME="qwq-flytre-bingo-booster-${VERSION}.jar"
+          cp "$JAR_FILE" "$ASSET_NAME"
+          echo "📦 Output: $ASSET_NAME"
+          echo "asset_name=$ASSET_NAME" >> "$GITHUB_ENV"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.asset_name }}
+          path: ${{ env.asset_name }}
+
+  release:
+    name: Publish Release
+    needs: [check, build]
+    if: needs.check.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: List downloaded files
+        run: ls -lh
+
+      - name: Delete existing release & tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ needs.check.outputs.version }}"
+          echo "🗑️ Cleaning up existing release/tag: $VERSION"
+          gh release delete "$VERSION" --yes --cleanup-tag 2>/dev/null || echo "No existing release to delete"
+          sleep 3
+
+      - name: Generate release notes from commits
+        run: |
+          VERSION="${{ needs.check.outputs.version }}"
+          REPO="${{ github.repository }}"
+
+          PREV_TAG=$(git tag --sort=-v:refname | grep -v "^${VERSION}$" | head -1)
+
+          {
+            echo "## What's Changed"
+            echo ""
+            if [ -n "$PREV_TAG" ]; then
+              echo "Changes since **${PREV_TAG}**:"
+              echo ""
+              git log "${PREV_TAG}..HEAD" --pretty=format:"- %s (\`%h\`) — @%an" --reverse
+            else
+              echo "All changes since repository creation:"
+              echo ""
+              git log --pretty=format:"- %s (\`%h\`) — @%an" --reverse
+            fi
+            echo ""
+            echo ""
+            echo "---"
+            echo ""
+            echo "### 📊 Build Info"
+            echo "- **Build date**: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            echo "- **Commit**: [\`${GITHUB_SHA::7}\`](https://github.com/${REPO}/commit/${GITHUB_SHA})"
+            echo ""
+            if [ -n "$PREV_TAG" ]; then
+              echo "**Full Changelog**: https://github.com/${REPO}/compare/${PREV_TAG}...${VERSION}"
+            else
+              echo "**Full Changelog**: https://github.com/${REPO}/commits/${VERSION}"
+            fi
+          } > release_notes.md
+
+          echo "📝 Release notes:"
+          cat release_notes.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ needs.check.outputs.version }}"
+          JAR_FILE=$(ls qwq-flytre-bingo-booster-*.jar | head -1)
+          echo "📤 Uploading: $JAR_FILE"
+          gh release create "$VERSION" \
+            --title "qwq-flytre-bingo-booster ${VERSION}" \
+            --notes-file release_notes.md \
+            --latest \
+            "$JAR_FILE"

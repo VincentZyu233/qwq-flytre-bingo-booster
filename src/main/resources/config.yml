@@ -7,3 +7,12 @@
 # ❌ error  - 只输出错误 🔴
 # 🔇 silent - 关闭所有日志 🤫
 log_level: info
+
+# 👥 队伍检测配置
+team_detection:
+  # 🔍 检测方式: team 或 scoreboard
+  # team       - 直接读 Minecraft 原生 team 系统（推荐 ✅）
+  # scoreboard - 读主计分板某个 objective 的分数值
+  method: team
+  # 📊 如果用 scoreboard 方式，指定计分板名
+  scoreboard_name: teamScore

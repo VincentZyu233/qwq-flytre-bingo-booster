@@ -4,30 +4,21 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.scheduler.BukkitRunnable
 import qwq.zyu.qwqFlytreBingoBooster.config.PluginLogger
+import qwq.zyu.qwqFlytreBingoBooster.config.TeamDetector
 
-class TeamColorTask : BukkitRunnable() {
+class TeamColorTask(
+    private val teamDetector: TeamDetector
+) : BukkitRunnable() {
     @Volatile
     var enabled = false
 
     override fun run() {
         if (!enabled) return
 
-        val scoreboard = Bukkit.getScoreboardManager()?.mainScoreboard
-        if (scoreboard == null) {
-            PluginLogger.warn("TeamColor: 无法获取主计分板")
-            return
-        }
-        val objective = scoreboard.getObjective("teamDisplay")
-        if (objective == null) {
-            PluginLogger.warn("TeamColor: 主计分板未找到 objective 'teamDisplay'")
-            return
-        }
-
         for (player in Bukkit.getOnlinePlayers()) {
-            val score = objective.getScore(player.name)
-            val value = if (score.isScoreSet) score.score else 0
+            val value = teamDetector.getTeamValue(player)
 
-            PluginLogger.debug("TeamColor: ${player.name} 队伍分数 = $value")
+            PluginLogger.debug("TeamColor: ${player.name} 队伍值 = $value")
 
             val (color, prefix) = when (value) {
                 1 -> ChatColor.RED to "[红] "

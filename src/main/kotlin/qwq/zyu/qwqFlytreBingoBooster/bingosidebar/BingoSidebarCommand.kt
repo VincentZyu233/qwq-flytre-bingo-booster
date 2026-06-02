@@ -4,14 +4,17 @@ import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
 import qwq.zyu.qwqFlytreBingoBooster.config.PluginLogger
+import qwq.zyu.qwqFlytreBingoBooster.config.TeamDetector
 
-class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
+class BingoSidebarCommand(
+    private val plugin: Plugin,
+    private val teamDetector: TeamDetector
+) : CommandExecutor {
 
     private val scoreboard: Scoreboard = Bukkit.getScoreboardManager()!!.newScoreboard
     private var task: BukkitRunnable? = null
@@ -68,14 +71,16 @@ class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
 
         val teamMemberMap = mutableMapOf<String, MutableList<String>>()
         val teamScoresMap = mutableMapOf<String, Int>()
+        val teamValueMap = mutableMapOf<String, Int>()
         val colorNames = arrayOf("无", "红", "黄", "绿", "蓝")
 
         for (player in Bukkit.getOnlinePlayers()) {
-            val teamValue = getTeamValue(player)
+            val teamValue = teamDetector.getTeamValue(player)
             val teamName = colorNames[teamValue]
             PluginLogger.debug("BingoSidebar: ${player.name} -> teamName=$teamName, teamValue=$teamValue")
             teamMemberMap.getOrPut(teamName) { mutableListOf() }.add(player.name)
             teamScoresMap[teamName] = teamScoresMap.getOrDefault(teamName, 0) + 1
+            teamValueMap[player.name] = teamValue
         }
 
         PluginLogger.debug("BingoSidebar: 队伍统计 -> $teamScoresMap")
@@ -87,29 +92,10 @@ class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
 
             val players = teamMemberMap.getOrDefault(teamName, mutableListOf()).sorted()
             for (playerName in players) {
-                val player = Bukkit.getPlayer(playerName) ?: continue
-                objective.getScore("$teamName【$playerName】").score = getTeamValue(player)
+                objective.getScore("$teamName【$playerName】").score = teamValueMap[playerName] ?: 0
             }
         }
 
         Bukkit.getOnlinePlayers().forEach { it.scoreboard = scoreboard }
-    }
-
-    private val mainScoreboard get() = Bukkit.getScoreboardManager()!!.mainScoreboard
-
-    private fun getTeamName(player: Player): String {
-        val team = mainScoreboard.getEntryTeam(player.name)
-        PluginLogger.debug("BingoSidebar: ${player.name} 在主计分板中的队伍 = ${team?.name ?: "null"}")
-        return team?.name ?: "none"
-    }
-
-    private fun getTeamValue(player: Player): Int {
-        return when (getTeamName(player)) {
-            "red" -> 1
-            "yellow" -> 2
-            "green" -> 3
-            "blue" -> 4
-            else -> 0
-        }
     }
 }

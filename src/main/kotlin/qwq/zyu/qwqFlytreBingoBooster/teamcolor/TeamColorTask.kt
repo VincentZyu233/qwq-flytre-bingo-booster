@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable
 class TeamColorTask : BukkitRunnable() {
     @Volatile
     var enabled = false
-        private set
+        // private set
 
     override fun run() {
         if (!enabled) return

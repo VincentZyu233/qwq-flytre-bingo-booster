@@ -68,8 +68,8 @@ push 到 `main` 或 `for-*` 分支时，commit message 包含特定关键字可�
 示例：
 
 ```bash
-git commit -m "fix: color sync delay; build action"
-git commit -m "feat: add team count display; build release"
+git commit -m "aaa: some commit messages...; build action"
+git commit -m "bbb: yet other commit messages...; build release"
 ```
 
 PR 到 `main` 或 `for-*` 分支时也会触发构建（但不发布）。

@@ -1,12 +1,12 @@
 <div align=center>
 
-[![Downloads](https://img.shields.io/github/downloads/__REPO__/__VERSION__/total?style=flat-square&logo=github)](https://github.com/__REPO__/releases/__VERSION__)
+[![Downloads](https://img.shields.io/github/downloads/__REPO__/__VERSION__/total?style=flat-square&logo=github)](https://github.com/__REPO__/releases/tag/__VERSION__)
 
 </div>
 
 ### ⬇️ Downloads
 
-[![Download](https://img.shields.io/badge/下载-__VERSION__-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/__REPO__/releases/__VERSION__)
+[![Download](https://img.shields.io/badge/下载-__VERSION__-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/__REPO__/releases/tag/__VERSION__)
 
 ### 📦 安装
 

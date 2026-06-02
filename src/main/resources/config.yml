@@ -1,0 +1,9 @@
+# 🎯 qwq-flytre-bingo-booster 配置
+
+# 📢 日志级别 (Log Level): debug, info, warn, error, silent
+# 🐛 debug  - 输出所有日志（调试用 🔧）
+# ℹ️  info   - 输出 info 及以上（默认 ✅）
+# ⚠️  warn   - 只输出警告和错误 🟡
+# ❌ error  - 只输出错误 🔴
+# 🔇 silent - 关闭所有日志 🤫
+log_level: info

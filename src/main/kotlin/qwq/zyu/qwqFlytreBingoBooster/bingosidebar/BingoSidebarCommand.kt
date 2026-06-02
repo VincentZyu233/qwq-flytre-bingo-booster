@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
+import qwq.zyu.qwqFlytreBingoBooster.config.PluginLogger
 
 class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
 
@@ -41,6 +42,7 @@ class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
         }.apply {
             runTaskTimer(plugin, 0L, 20 * 10L)
         }
+        PluginLogger.info("BingoSidebar: 更新任务已开启")
         sender.sendMessage("已经开启sidebar的更新任务")
         return true
     }
@@ -52,6 +54,7 @@ class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
         }
         task!!.cancel()
         task = null
+        PluginLogger.info("BingoSidebar: 更新任务已停止")
         sender.sendMessage("已经停止sidebar更新")
         return true
     }
@@ -70,9 +73,12 @@ class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
         for (player in Bukkit.getOnlinePlayers()) {
             val teamValue = getTeamValue(player)
             val teamName = colorNames[teamValue]
+            PluginLogger.debug("BingoSidebar: ${player.name} -> teamName=$teamName, teamValue=$teamValue")
             teamMemberMap.getOrPut(teamName) { mutableListOf() }.add(player.name)
             teamScoresMap[teamName] = teamScoresMap.getOrDefault(teamName, 0) + 1
         }
+
+        PluginLogger.debug("BingoSidebar: 队伍统计 -> $teamScoresMap")
 
         val teamOrder = listOf("红", "黄", "绿", "蓝")
         for (teamName in teamOrder) {
@@ -89,8 +95,12 @@ class BingoSidebarCommand(private val plugin: Plugin) : CommandExecutor {
         Bukkit.getOnlinePlayers().forEach { it.scoreboard = scoreboard }
     }
 
+    private val mainScoreboard get() = Bukkit.getScoreboardManager()!!.mainScoreboard
+
     private fun getTeamName(player: Player): String {
-        return player.scoreboard.getEntryTeam(player.name)?.name ?: "none"
+        val team = mainScoreboard.getEntryTeam(player.name)
+        PluginLogger.debug("BingoSidebar: ${player.name} 在主计分板中的队伍 = ${team?.name ?: "null"}")
+        return team?.name ?: "none"
     }
 
     private fun getTeamValue(player: Player): Int {

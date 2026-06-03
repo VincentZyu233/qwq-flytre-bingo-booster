@@ -2,6 +2,7 @@ package qwq.zyu.qwqFlytreBingoBooster.config
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import qwq.zyu.qwqFlytreBingoBooster.type.TeamVisual
 
 enum class DetectionMethod { TEAM, SCOREBOARD }
 
@@ -25,13 +26,7 @@ class TeamDetector(
         return when (method) {
             DetectionMethod.TEAM -> {
                 val teamName = resolveTeamName(player)
-                when (teamName) {
-                    "red" -> 1
-                    "yellow" -> 2
-                    "green" -> 3
-                    "blue" -> 4
-                    else -> 0
-                }
+                TeamVisual.fromTeamKey(teamName).scoreValue
             }
             DetectionMethod.SCOREBOARD -> {
                 val scoreboard = mainScoreboard ?: return 0

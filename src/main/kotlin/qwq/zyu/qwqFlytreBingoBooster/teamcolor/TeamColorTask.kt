@@ -24,7 +24,8 @@ class TeamColorTask(
                 1 -> ChatColor.RED to       "【--Red-红--】 "
                 2 -> ChatColor.YELLOW to    "【--Yellow-黄--】 "
                 3 -> ChatColor.GREEN to     "【--Green-绿--】 "
-                4 -> ChatColor.BLUE to      "【--Blue-蓝--】 "
+                // 4 -> ChatColor.BLUE to      "【--Blue-蓝--】 "
+                4 -> ChatColor.AQUA to      "【--Blue-蓝--】 "
                 else -> ChatColor.WHITE to ""
             }
 

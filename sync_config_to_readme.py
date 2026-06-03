@@ -2,30 +2,24 @@ import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-README = PROJECT_ROOT / "README.md"
 CONFIG_YML = PROJECT_ROOT / "src" / "main" / "resources" / "config.yml"
 
-CONFIG_MARKER = "默认配置如下："
+README_FILES = {
+    PROJECT_ROOT / "README.md": "Default configuration:",
+    PROJECT_ROOT / "README-zh.cn.md": "默认配置如下：",
+}
 
 
-def main():
-    if not CONFIG_YML.exists():
-        print(f"❌ 找不到 {CONFIG_YML}", file=sys.stderr)
-        sys.exit(1)
-    if not README.exists():
-        print(f"❌ 找不到 {README}", file=sys.stderr)
-        sys.exit(1)
-
+def update_readme(filepath: Path, marker: str):
     config_text = CONFIG_YML.read_text(encoding="utf-8").strip()
-    readme_text = README.read_text(encoding="utf-8")
+    readme_text = filepath.read_text(encoding="utf-8")
 
-    marker_idx = readme_text.index(CONFIG_MARKER)
+    marker_idx = readme_text.index(marker)
     after_marker = readme_text[marker_idx:]
 
     fence_start = after_marker.index("```yml")
     fence_end = after_marker.index("```", fence_start + 6)
 
-    old_block = after_marker[fence_start : fence_end + 3]
     new_block = f"```yml\n{config_text}\n```"
 
     new_readme = (
@@ -34,8 +28,28 @@ def main():
         + readme_text[marker_idx + fence_end + 3 :]
     )
 
-    README.write_text(new_readme, encoding="utf-8")
-    print(f"✅ README.md 已同步 {CONFIG_YML.relative_to(PROJECT_ROOT)}")
+    filepath.write_text(new_readme, encoding="utf-8")
+    print(f"  ✅ {filepath.name} synchronised")
+
+
+def main():
+    if not CONFIG_YML.exists():
+        print(f"❌ Config not found: {CONFIG_YML}", file=sys.stderr)
+        sys.exit(1)
+
+    targets = sys.argv[1:] if len(sys.argv) > 1 else list(README_FILES.keys())
+
+    for target in targets:
+        path = Path(target)
+        if not path.is_absolute():
+            path = PROJECT_ROOT / path
+        if path not in README_FILES:
+            print(f"⚠️  Skipping unknown file: {path.name}", file=sys.stderr)
+            continue
+        if not path.exists():
+            print(f"❌ File not found: {path}", file=sys.stderr)
+            continue
+        update_readme(path, README_FILES[path])
 
 
 if __name__ == "__main__":

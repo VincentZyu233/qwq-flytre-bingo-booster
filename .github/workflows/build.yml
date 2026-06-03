@@ -125,23 +125,31 @@ jobs:
           PREV_TAG=$(git tag --sort=-v:refname | grep -v "^${VERSION}$" | head -1)
 
           if [ -n "$PREV_TAG" ]; then
-            CHANGE_LOG=$(git log "${PREV_TAG}..HEAD" --pretty=format:"- %s (\`%h\`) — @%an" --reverse)
+            git log "${PREV_TAG}..HEAD" --pretty=format:"%s (\`%h\`) — @%an" --reverse > changelog_raw.txt
           else
-            CHANGE_LOG=$(git log --pretty=format:"- %s (\`%h\`) — @%an" --reverse)
+            git log --pretty=format:"%s (\`%h\`) — @%an" --reverse > changelog_raw.txt
           fi
 
-          BASE_URL="https://github.com/${REPO}/releases/download/${VERSION}"
+          if [ -s changelog_raw.txt ]; then
+            sed 's/^/> /' changelog_raw.txt > changelog_rendered.txt
+          else
+            echo '> No changelog entries.' > changelog_rendered.txt
+          fi
 
-          TEMPLATE=$(cat .github/release_template.md)
+          {
+            while IFS= read -r line || [ -n "$line" ]; do
+              if [ "$line" = "__CHANGE_LOG__" ]; then
+                cat changelog_rendered.txt
+                continue
+              fi
 
-          RELEASE_NOTES="${TEMPLATE//__REPO__/$REPO}"
-          RELEASE_NOTES="${RELEASE_NOTES//__VERSION__/$VERSION}"
-          RELEASE_NOTES="${RELEASE_NOTES//__BASE_URL__/$BASE_URL}"
-          RELEASE_NOTES="${RELEASE_NOTES//__CHANGE_LOG__/$CHANGE_LOG}"
-          RELEASE_NOTES="${RELEASE_NOTES//__BRANCH__/${{ github.ref_name }}}"
-          RELEASE_NOTES="${RELEASE_NOTES//__COMMIT_HASH__/${{ github.sha }}}"
-
-          echo "$RELEASE_NOTES" > release_notes.md
+              line="${line//__REPO__/$REPO}"
+              line="${line//__VERSION__/$VERSION}"
+              line="${line//__BRANCH__/${{ github.ref_name }}}"
+              line="${line//__COMMIT_HASH__/${{ github.sha }}}"
+              printf '%s\n' "$line"
+            done < .github/release_template.md
+          } > release_notes.md
 
           echo "📝 Release notes:"
           cat release_notes.md

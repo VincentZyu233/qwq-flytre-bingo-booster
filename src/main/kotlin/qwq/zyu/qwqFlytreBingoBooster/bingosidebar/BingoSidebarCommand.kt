@@ -1,6 +1,7 @@
 package qwq.zyu.qwqFlytreBingoBooster.bingosidebar
 
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -80,6 +81,18 @@ class BingoSidebarCommand(
         PluginLogger.debug("BingoSidebar: 队伍统计 -> $teamScoresMap")
 
         val teamOrder = listOf("红", "黄", "绿", "蓝")
+        val teamLabels = mapOf(
+            "红" to "【Red红】",
+            "黄" to "【Yellow黄】",
+            "绿" to "【Green绿】",
+            "蓝" to "【Blue蓝】"
+        )
+        val teamColors = mapOf(
+            "红" to ChatColor.RED,
+            "黄" to ChatColor.YELLOW,
+            "绿" to ChatColor.GREEN,
+            "蓝" to ChatColor.BLUE
+        )
         val currentEntries = linkedSetOf<String>()
 
         val uniqueScoreboards = Bukkit.getOnlinePlayers()
@@ -89,7 +102,7 @@ class BingoSidebarCommand(
         for (scoreboard in uniqueScoreboards) {
             var objective = scoreboard.getObjective("qwqBingoSidebar")
             if (objective == null) {
-                objective = scoreboard.registerNewObjective("qwqBingoSidebar", "dummy", "---队伍---")
+                objective = scoreboard.registerNewObjective("qwqBingoSidebar", "dummy", "---Teams队伍---")
             }
             objective.displaySlot = DisplaySlot.SIDEBAR
 
@@ -97,13 +110,15 @@ class BingoSidebarCommand(
 
             currentEntries.clear()
             for (teamName in teamOrder) {
-                val teamLine = "${teamName}队"
+                val teamLabel = teamLabels[teamName] ?: teamName
+                val teamLine = "${teamLabel}队"
                 objective.getScore(teamLine).score = teamScoresMap.getOrDefault(teamName, 0)
                 currentEntries.add(teamLine)
 
                 val players = teamMemberMap.getOrDefault(teamName, mutableListOf()).sorted()
                 for (playerName in players) {
-                    val entry = "$teamName【$playerName】"
+                    val color = teamColors[teamName] ?: ChatColor.WHITE
+                    val entry = "$color${teamLabel}$playerName${ChatColor.RESET}"
                     objective.getScore(entry).score = teamValueMap[playerName] ?: 0
                     currentEntries.add(entry)
                 }

@@ -15,9 +15,8 @@ class BingoSidebarCommand(
     private val plugin: Plugin,
     private val teamDetector: TeamDetector
 ) : CommandExecutor {
-
-    private val scoreboard: Scoreboard = Bukkit.getScoreboardManager()!!.newScoreboard
     private var task: BukkitRunnable? = null
+    private val lastEntriesByScoreboard = mutableMapOf<Scoreboard, Set<String>>()
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (args.size != 1) {
@@ -43,7 +42,7 @@ class BingoSidebarCommand(
         task = object : BukkitRunnable() {
             override fun run() = updateSidebar()
         }.apply {
-            runTaskTimer(plugin, 0L, 20 * 10L)
+            runTaskTimer(plugin, 0L, 10L)
         }
         PluginLogger.info("BingoSidebar: 更新任务已开启")
         sender.sendMessage("已经开启sidebar的更新任务")
@@ -63,12 +62,6 @@ class BingoSidebarCommand(
     }
 
     private fun updateSidebar() {
-        var objective = scoreboard.getObjective("teamDisplay")
-        if (objective == null) {
-            objective = scoreboard.registerNewObjective("teamDisplay", "dummy", "---队伍---")
-        }
-        objective.displaySlot = DisplaySlot.SIDEBAR
-
         val teamMemberMap = mutableMapOf<String, MutableList<String>>()
         val teamScoresMap = mutableMapOf<String, Int>()
         val teamValueMap = mutableMapOf<String, Int>()
@@ -86,16 +79,36 @@ class BingoSidebarCommand(
         PluginLogger.debug("BingoSidebar: 队伍统计 -> $teamScoresMap")
 
         val teamOrder = listOf("红", "黄", "绿", "蓝")
-        for (teamName in teamOrder) {
-            val teamLine = "${teamName}队"
-            objective.getScore(teamLine).score = teamScoresMap.getOrDefault(teamName, 0)
+        val currentEntries = linkedSetOf<String>()
 
-            val players = teamMemberMap.getOrDefault(teamName, mutableListOf()).sorted()
-            for (playerName in players) {
-                objective.getScore("$teamName【$playerName】").score = teamValueMap[playerName] ?: 0
+        val uniqueScoreboards = Bukkit.getOnlinePlayers()
+            .map { it.scoreboard }
+            .toSet()
+
+        for (scoreboard in uniqueScoreboards) {
+            var objective = scoreboard.getObjective("qwqBingoSidebar")
+            if (objective == null) {
+                objective = scoreboard.registerNewObjective("qwqBingoSidebar", "dummy", "---队伍---")
             }
-        }
+            objective.displaySlot = DisplaySlot.SIDEBAR
 
-        Bukkit.getOnlinePlayers().forEach { it.scoreboard = scoreboard }
+            lastEntriesByScoreboard[scoreboard].orEmpty().forEach { scoreboard.resetScores(it) }
+
+            currentEntries.clear()
+            for (teamName in teamOrder) {
+                val teamLine = "${teamName}队"
+                objective.getScore(teamLine).score = teamScoresMap.getOrDefault(teamName, 0)
+                currentEntries.add(teamLine)
+
+                val players = teamMemberMap.getOrDefault(teamName, mutableListOf()).sorted()
+                for (playerName in players) {
+                    val entry = "$teamName【$playerName】"
+                    objective.getScore(entry).score = teamValueMap[playerName] ?: 0
+                    currentEntries.add(entry)
+                }
+            }
+
+            lastEntriesByScoreboard[scoreboard] = currentEntries.toSet()
+        }
     }
 }

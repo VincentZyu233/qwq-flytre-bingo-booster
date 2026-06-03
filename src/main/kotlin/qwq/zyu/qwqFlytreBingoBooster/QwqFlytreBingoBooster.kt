@@ -28,7 +28,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         PluginLogger.info("队伍检测方式: ${method.name.lowercase()}, 计分板名: $sbName")
 
         teamColorTask = TeamColorTask(teamDetector)
-        teamColorTask.runTaskTimer(this, 0L, 20L)
+        teamColorTask.runTaskTimer(this, 0L, 10L)
 
         getCommand("qwq_set_scheduled_team_color_dye")?.setExecutor(TeamColorCommand(teamColorTask))
         getCommand("qwq_bingo_sidebar")?.setExecutor(BingoSidebarCommand(this, teamDetector))

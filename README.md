@@ -2,7 +2,7 @@
 
 # 🎯👥🎨📊⚡ qwq-flytre-bingo-booster
 
-> 🧩 Flytre Bingo 地图专用 Spigot 辅助插件：队伍染色 + 侧边栏显示
+> 🧩 专为 [Flytre Bingo](https://www.flytre.net/bingo) 地图打造的 Spigot 辅助插件：队伍染色 + 侧边栏显示
 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster)
 [![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/qwq-flytre-bingo-booster)
@@ -21,10 +21,10 @@
 
 | 功能 | 命令 | 说明 |
 |------|------|------|
-| 🎨 **队伍染色** | `/qwq_set_scheduled_team_color_dye <true/false>` | 根据计分板值(1-4)给玩家名染上对应队伍颜色（🔴红/🟡黄/🟢绿/🔵蓝），并在聊天栏和 Tab 列表中显示队伍前缀 |
-| 📊 **侧边栏** | `/qwq_bingo_sidebar <true/false>` | 在屏幕右侧显示各队伍成员列表，每 10 秒自动刷新 |
+| 🎨 **队伍染色** | `/qwq_set_scheduled_team_color_dye <true/false>` | 根据 `team_detection` 配置读取原生 Team 或计分板分数，为玩家名添加对应队伍颜色与前缀（🔴红/🟡黄/🟢绿/🔵蓝） |
+| 📊 **侧边栏** | `/qwq_bingo_sidebar <true/false>` | 在屏幕右侧显示各队伍成员列表，每 0.5 秒自动刷新 |
 
-> 💡 两个功能都读取计分板 `teamDisplay` 目标中玩家的分数值来决定所属队伍，与 Flytre Bingo 地图原生数据联动。
+> 💡 本插件专为 [Flytre Bingo](https://www.flytre.net/bingo) 地图设计，可按配置读取 Minecraft 原生 Team 或主计分板 objective 来判断队伍，并与地图原生数据联动。
 
 ---
 
@@ -40,9 +40,24 @@
 
 ## 📦 下载与安装
 
-[![Download](https://img.shields.io/badge/下载-GitHub_Releases-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster/releases)
+[![Download](https://img.shields.io/badge/Download-GitHub_Releases-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster/releases)
 
 将 `.jar` 文件放入服务器的 `plugins/` 目录后重启即可。
+
+默认配置如下：
+
+```yml
+log_level: info
+
+team_detection:
+  method: team
+  scoreboard_name: teamScore
+```
+
+`team_detection.method` 支持两种模式：
+
+- `team`: 优先读取玩家当前 scoreboard 上的原生 Team，读不到时回退到主 scoreboard
+- `scoreboard`: 读取主 scoreboard 上指定 objective 的分数值，默认使用 `teamScore`
 
 ---
 
@@ -80,4 +95,3 @@ PR 到 `main` 或 `for-*` 分支时也会触发构建（但不发布）。
 
 <p>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
 <p>💡 在群里直接艾特我，回复的更快哦 ~ ✨</p>
-

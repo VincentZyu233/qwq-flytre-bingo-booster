@@ -11,10 +11,20 @@ class TeamDetector(
 ) {
     private val mainScoreboard get() = Bukkit.getScoreboardManager()?.mainScoreboard
 
+    private fun resolveTeamName(player: Player): String {
+        val playerTeam = player.scoreboard.getEntryTeam(player.name)?.name
+        if (!playerTeam.isNullOrBlank()) return playerTeam
+
+        val mainTeam = mainScoreboard?.getEntryTeam(player.name)?.name
+        if (!mainTeam.isNullOrBlank()) return mainTeam
+
+        return ""
+    }
+
     fun getTeamValue(player: Player): Int {
         return when (method) {
             DetectionMethod.TEAM -> {
-                val teamName = mainScoreboard?.getEntryTeam(player.name)?.name ?: ""
+                val teamName = resolveTeamName(player)
                 when (teamName) {
                     "red" -> 1
                     "yellow" -> 2
@@ -34,7 +44,7 @@ class TeamDetector(
 
     fun getTeamName(player: Player): String {
         return when (method) {
-            DetectionMethod.TEAM -> mainScoreboard?.getEntryTeam(player.name)?.name ?: "none"
+            DetectionMethod.TEAM -> resolveTeamName(player).ifBlank { "none" }
             DetectionMethod.SCOREBOARD -> {
                 val scoreboard = mainScoreboard ?: return "none"
                 scoreboard.getEntryTeam(player.name)?.name ?: "none"

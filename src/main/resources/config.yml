@@ -10,7 +10,7 @@ log_level: info
 
 # 🧾 命令名配置
 commands:
-  team_color_dye: qwq_set_scheduled_team_color_dye
+  team_color_dye: qwq_team_color_dye
   bingo_sidebar: qwq_bingo_sidebar
 
 # 🚀 功能默认启用配置

@@ -21,7 +21,7 @@
 
 | 功能 | 命令 | 说明 |
 |------|------|------|
-| 🎨 **队伍染色** | `/qwq_set_scheduled_team_color_dye <true/false>` | 根据 `team_detection` 配置读取原生 Team 或计分板分数，为玩家名添加对应队伍颜色与前缀（🔴红/🟡黄/🟢绿/🔵蓝） |
+| 🎨 **队伍染色** | `/qwq_team_color_dye <true/false>` | 根据 `team_detection` 配置读取原生 Team 或计分板分数，为玩家名添加对应队伍颜色与前缀（🔴红/🟡黄/🟢绿/🔵蓝） |
 | 📊 **侧边栏** | `/qwq_bingo_sidebar <true/false>` | 在屏幕右侧显示各队伍成员列表，每 0.5 秒自动刷新 |
 
 > 💡 本插件专为 [Flytre Bingo地图](https://www.flytre.net/bingo) 设计，这里有[Flytre Bingo地图的下载链接](https://www.flytre.net/bingo)。 
@@ -30,10 +30,11 @@
 ### 🗺️ 版本支持
 
 > 截止2026年6月3日，目前本插件支持的情况如下:
+
 | | |
 |---|---|
 | 🎯 **适配地图** | [![Flytre Bingo](https://img.shields.io/badge/Flytre_Bingo-62B47A?style=for-the-badge&logo=minecraft&logoColor=white)](https://www.flytre.net/bingo) |
-| 🧱 **地图支持版本** | 1.16.x · 1.17.x · 1.18.x · 1.19.x · 1.20.2-4 · **1.21.5** · **1.21.10** |
+| 🌎 **地图支持版本** | 1.16.x · 1.17.x · 1.18.x · 1.19.x · 1.20.2-4 · **1.21.5** · **1.21.10** |
 | 📦 **插件支持版本** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
 
 ---
@@ -60,7 +61,7 @@
 log_level: info
 
 commands:
-  team_color_dye: qwq_set_scheduled_team_color_dye
+  team_color_dye: qwq_team_color_dye
   bingo_sidebar: qwq_bingo_sidebar
 
 features:

@@ -34,8 +34,8 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         teamColorTask = TeamColorTask(teamDetector)
         teamColorTask.runTaskTimer(this, 0L, 10L)
 
-        val teamColorCommandName = config.getString("commands.team_color_dye", "qwq_set_scheduled_team_color_dye")
-            ?: "qwq_set_scheduled_team_color_dye"
+        val teamColorCommandName = config.getString("commands.team_color_dye", "qwq_team_color_dye")
+            ?: "qwq_team_color_dye"
         val bingoSidebarCommandName = config.getString("commands.bingo_sidebar", "qwq_bingo_sidebar")
             ?: "qwq_bingo_sidebar"
         val enableTeamColorOnLoad = config.getBoolean("features.team_color_dye.enabled_on_load", true)
@@ -45,7 +45,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         bingoSidebarCommand = BingoSidebarCommand(this, teamDetector, bingoSidebarCommandName)
 
         bindConfiguredCommand(
-            defaultName = "qwq_set_scheduled_team_color_dye",
+            defaultName = "qwq_team_color_dye",
             configuredName = teamColorCommandName,
             executor = teamColorExecutor
         )
@@ -99,7 +99,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
 
         try {
             val pluginCommand = createPluginCommand(normalizedName)
-            pluginCommand.executor = executor
+            pluginCommand.setExecutor(executor)
             pluginCommand.usage = "/$normalizedName <true/false>"
             getCommandMap().register(description.name.lowercase(), pluginCommand)
             registeredConfigCommands.add(normalizedName)

@@ -7,7 +7,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster)
 [![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/qwq-flytre-bingo-booster)
 
-[![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Fmain%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://papermc.io)
+[![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://papermc.io)
 [![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://www.spigotmc.org/)
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
@@ -33,7 +33,7 @@
 
 | | |
 |---|---|
-| 🎯 **适配地图** | [![Flytre Bingo](https://img.shields.io/badge/Flytre_Bingo-62B47A?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Fmain%2Fdoc%2Fimages%2Flogo%2Fminecraft.svg)](https://www.flytre.net/bingo) |
+| 🎯 **适配地图** | [![Flytre Bingo](https://img.shields.io/badge/Flytre_Bingo-62B47A?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fminecraft.svg)](https://www.flytre.net/bingo) |
 | 🌎 **地图支持版本** | 1.16.x · 1.17.x · 1.18.x · 1.19.x · 1.20.2-4 · **1.21.5** · **1.21.10** |
 | 📦 **插件支持版本** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
 
@@ -43,7 +43,7 @@
 
 | | |
 |---|---|
-| 🧱 **服务端** | [![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Fmain%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
+| 🧱 **服务端** | [![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
 | 📝 **语言** | [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org) |
 | 🏗 **构建** | [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org) |
 
@@ -58,20 +58,35 @@
 默认配置如下：
 
 ```yml
+# 🎯 qwq-flytre-bingo-booster 配置
+
+# 📢 日志级别 (Log Level): debug, info, warn, error, silent
+# 🐛 debug  - 输出所有日志（调试用 🔧）
+# ℹ️  info   - 输出 info 及以上（默认 ✅）
+# ⚠️  warn   - 只输出警告和错误 🟡
+# ❌ error  - 只输出错误 🔴
+# 🔇 silent - 关闭所有日志 🤫
 log_level: info
 
+# 🧾 命令名配置
 commands:
   team_color_dye: qwq_team_color_dye
   bingo_sidebar: qwq_bingo_sidebar
 
+# 🚀 功能默认启用配置
 features:
   team_color_dye:
     enabled_on_load: true
   bingo_sidebar:
     enabled_on_load: true
 
+# 👥 队伍检测配置
 team_detection:
+  # 🔍 检测方式: team 或 scoreboard
+  # team       - 优先读玩家当前 scoreboard 上的原生 team，读不到时回退主 scoreboard（推荐 ✅）
+  # scoreboard - 读主计分板某个 objective 的分数值
   method: team
+  # 📊 如果用 scoreboard 方式，指定主计分板 objective 名
   scoreboard_name: teamScore
 ```
 

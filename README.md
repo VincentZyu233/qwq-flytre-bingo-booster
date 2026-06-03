@@ -3,17 +3,24 @@
 # 🎯👥🎨📊⚡ qwq-flytre-bingo-booster
 
 > 🧩 A Spigot helper plugin for [Flytre Bingo](https://www.flytre.net/bingo): team dyeing + sidebar display
+>
+> **[📖 English](README.md)**
+> **[📖 中文](README-zh.cn.md)**
 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster)
 [![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/qwq-flytre-bingo-booster)
 
-[![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://papermc.io)
-[![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://www.spigotmc.org/)
+[![Paper](./doc/images/badge/paper.svg)](https://papermc.io)
+[![Spigot](./doc/images/badge/spigot.svg)](https://www.spigotmc.org/)
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org)
 
 [![QQ Group](https://img.shields.io/badge/QQ_Group-1085190201-12B7F5?style=flat-square&logo=qq&logoColor=white)](https://qm.qq.com/q/4vjto4V7Di)
+
+<p><del>💬 Plugin usage / 🐛 Bug reports / 👨‍💻 Development discussion — Join our QQ Group: <b>259248174</b> 🎉 (This group is gone)</del></p>
+<p>💬 Plugin usage / 🐛 Bug reports / 👨‍💻 Development discussion — Join our QQ Group: <b>1085190201</b> 🎉</p>
+<p>💡 Mention me in the group for faster replies ~ ✨</p>
 
 ---
 
@@ -37,9 +44,9 @@
 
 | | |
 |---|---|
-| 🎯 **Supported Map** | [![Flytre Bingo](https://img.shields.io/badge/Flytre_Bingo-62B47A?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fminecraft.svg)](https://www.flytre.net/bingo) |
+| 🎯 **Supported Map** | [![Flytre Bingo](./doc/images/badge/minecraft.svg)](https://www.flytre.net/bingo) |
 | 🌎 **Map Versions** | 1.16.x · 1.17.x · 1.18.x · 1.19.x · 1.20.2-4 · **1.21.5** · **1.21.10** |
-| 📦 **Plugin Version** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
+| 📦 **Plugin Version** | [![Paper](./doc/images/badge/paper.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](./doc/images/badge/spigot.svg)](https://getbukkit.org/download/spigot) |
 
 ---
 
@@ -47,7 +54,7 @@
 
 | | |
 |---|---|
-| 🧱 **Server** | [![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
+| 🧱 **Server** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
 | 📝 **Language** | [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org) |
 | 🏗 **Build** | [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org) |
 
@@ -143,8 +150,3 @@ git commit -m "bbb: yet other commit messages...; build release"
 PRs to `main` or `for-*` branches also trigger builds (but not releases).
 
 ---
-
-## 💬 Feedback
-
-<p>💬 Plugin usage / 🐛 Bug reports / 👨‍💻 Development discussion — Join our QQ Group: <b>1085190201</b> 🎉</p>
-<p>💡 Mention me in the group for faster replies ~ ✨</p>

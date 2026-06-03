@@ -3,17 +3,24 @@
 # 🎯👥🎨📊⚡ qwq-flytre-bingo-booster
 
 > 🧩 专为 [Flytre Bingo](https://www.flytre.net/bingo) 地图打造的 Spigot 辅助插件：队伍染色 + 侧边栏显示
+>
+> **[📖 English](README.md)**
+> **[📖 中文](README-zh.cn.md)**
 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster)
 [![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/qwq-flytre-bingo-booster)
 
-[![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://papermc.io)
-[![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://www.spigotmc.org/)
+[![Paper](./doc/images/badge/paper.svg)](https://papermc.io)
+[![Spigot](./doc/images/badge/spigot.svg)](https://www.spigotmc.org/)
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org)
 
 [![QQ群](https://img.shields.io/badge/QQ群-1085190201-12B7F5?style=flat-square&logo=qq&logoColor=white)](https://qm.qq.com/q/4vjto4V7Di)
+
+<p><del>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>259248174</b>   🎉（这个群G了</del> </p>
+<p>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
+<p>💡 在群里直接艾特我，回复的更快哦~ ✨</p>
 
 ---
 
@@ -37,9 +44,9 @@
 
 | | |
 |---|---|
-| 🎯 **适配地图** | [![Flytre Bingo](https://img.shields.io/badge/Flytre_Bingo-62B47A?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fminecraft.svg)](https://www.flytre.net/bingo) |
+| 🎯 **适配地图** | [![Flytre Bingo](./doc/images/badge/minecraft.svg)](https://www.flytre.net/bingo) |
 | 🌎 **地图支持版本** | 1.16.x · 1.17.x · 1.18.x · 1.19.x · 1.20.2-4 · **1.21.5** · **1.21.10** |
-| 📦 **插件支持版本** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
+| 📦 **插件支持版本** | [![Paper](./doc/images/badge/paper.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](./doc/images/badge/spigot.svg)](https://getbukkit.org/download/spigot) |
 
 ---
 
@@ -47,7 +54,7 @@
 
 | | |
 |---|---|
-| 🧱 **服务端** | [![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
+| 🧱 **服务端** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
 | 📝 **语言** | [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org) |
 | 🏗 **构建** | [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org) |
 
@@ -143,8 +150,3 @@ git commit -m "bbb: yet other commit messages...; build release"
 PR 到 `main` 或 `for-*` 分支时也会触发构建（但不发布）。
 
 ---
-
-## 💬 交流反馈
-
-<p>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
-<p>💡 在群里直接艾特我，回复的更快哦 ~ ✨</p>

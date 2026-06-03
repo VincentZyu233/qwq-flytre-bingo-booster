@@ -11,8 +11,8 @@ folia-supported: true
 
 commands:
   qwq_set_scheduled_team_color_dye:
-    description: 根据 team_detection 配置给玩家名字染色并加上前缀
+    description: 根据 team_detection 配置给玩家名字染色并加上前缀，可通过 config.yml 自定义命令名
     usage: /qwq_set_scheduled_team_color_dye <true/false>
   qwq_bingo_sidebar:
-    description: 显示 bingo 队伍侧边栏（0.5 秒刷新）
+    description: 显示 bingo 队伍侧边栏（0.5 秒刷新），可通过 config.yml 自定义命令名
     usage: /qwq_bingo_sidebar <true/false>

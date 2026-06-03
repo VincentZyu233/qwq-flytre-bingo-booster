@@ -6,12 +6,13 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 
 class TeamColorCommand(
-    private val task: TeamColorTask
+    private val task: TeamColorTask,
+    private val commandName: String
 ) : CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (args.size != 1) {
-            sender.sendMessage("${ChatColor.RED}【qwq】用法: /qwq_set_scheduled_team_color_dye <true/false>")
+            sender.sendMessage("${ChatColor.RED}【qwq】用法: /$commandName <true/false>")
             return false
         }
 

@@ -6,7 +6,7 @@
 
 ### ⬇️ Downloads
 
-[![Download](https://img.shields.io/badge/Download-__VERSION__-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/__REPO__/releases/tag/__VERSION__)
+[![Download](https://img.shields.io/static/v1?label=Download&message=__VERSION__&color=ED8106&style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/__REPO__/releases/tag/__VERSION__)
 
 ### 📦 安装
 

@@ -21,10 +21,10 @@ class TeamColorTask(
             PluginLogger.debug("TeamColor: ${player.name} 队伍值 = $value")
 
             val (color, prefix) = when (value) {
-                1 -> ChatColor.RED to "[红] "
-                2 -> ChatColor.YELLOW to "[黄] "
-                3 -> ChatColor.GREEN to "[绿] "
-                4 -> ChatColor.BLUE to "[蓝] "
+                1 -> ChatColor.RED to       "【--Red-红--】 "
+                2 -> ChatColor.YELLOW to    "【--Yellow-黄--】 "
+                3 -> ChatColor.GREEN to     "【--Green-绿--】 "
+                4 -> ChatColor.BLUE to      "【--Blue-蓝--】 "
                 else -> ChatColor.WHITE to ""
             }
 

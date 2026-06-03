@@ -8,6 +8,18 @@
 # 🔇 silent - 关闭所有日志 🤫
 log_level: info
 
+# 🧾 命令名配置
+commands:
+  team_color_dye: qwq_set_scheduled_team_color_dye
+  bingo_sidebar: qwq_bingo_sidebar
+
+# 🚀 功能默认启用配置
+features:
+  team_color_dye:
+    enabled_on_load: true
+  bingo_sidebar:
+    enabled_on_load: true
+
 # 👥 队伍检测配置
 team_detection:
   # 🔍 检测方式: team 或 scoreboard

@@ -13,14 +13,15 @@ import qwq.zyu.qwqFlytreBingoBooster.config.TeamDetector
 
 class BingoSidebarCommand(
     private val plugin: Plugin,
-    private val teamDetector: TeamDetector
+    private val teamDetector: TeamDetector,
+    private val commandName: String
 ) : CommandExecutor {
     private var task: BukkitRunnable? = null
     private val lastEntriesByScoreboard = mutableMapOf<Scoreboard, Set<String>>()
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (args.size != 1) {
-            sender.sendMessage("用法: /qwq_bingo_sidebar <enable? true/false>")
+            sender.sendMessage("用法: /$commandName <enable? true/false>")
             return false
         }
 
@@ -28,15 +29,15 @@ class BingoSidebarCommand(
             "true" -> enable(sender)
             "false" -> disable(sender)
             else -> {
-                sender.sendMessage("用法: /qwq_bingo_sidebar <enable? true/false>")
+                sender.sendMessage("用法: /$commandName <enable? true/false>")
                 false
             }
         }
     }
 
-    private fun enable(sender: CommandSender): Boolean {
+    fun enable(sender: CommandSender? = null): Boolean {
         if (task != null) {
-            sender.sendMessage("sidebar的更新任务已经在运行。")
+            sender?.sendMessage("sidebar的更新任务已经在运行。")
             return false
         }
         task = object : BukkitRunnable() {
@@ -45,19 +46,19 @@ class BingoSidebarCommand(
             runTaskTimer(plugin, 0L, 10L)
         }
         PluginLogger.info("BingoSidebar: 更新任务已开启")
-        sender.sendMessage("已经开启sidebar的更新任务")
+        sender?.sendMessage("已经开启sidebar的更新任务")
         return true
     }
 
-    private fun disable(sender: CommandSender): Boolean {
+    fun disable(sender: CommandSender? = null): Boolean {
         if (task == null) {
-            sender.sendMessage("没有sidebar更新任务！停什喵！")
+            sender?.sendMessage("没有sidebar更新任务！停什喵！")
             return false
         }
         task!!.cancel()
         task = null
         PluginLogger.info("BingoSidebar: 更新任务已停止")
-        sender.sendMessage("已经停止sidebar更新")
+        sender?.sendMessage("已经停止sidebar更新")
         return true
     }
 

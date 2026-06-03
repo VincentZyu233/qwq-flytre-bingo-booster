@@ -2,7 +2,7 @@
 
 # 🎯👥🎨📊⚡ qwq-flytre-bingo-booster
 
-> 🧩 专为 [Flytre Bingo](https://www.flytre.net/bingo) 地图打造的 Spigot 辅助插件：队伍染色 + 侧边栏显示
+> 🧩 A Spigot helper plugin for [Flytre Bingo](https://www.flytre.net/bingo): team dyeing + sidebar display
 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster)
 [![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/qwq-flytre-bingo-booster)
@@ -13,49 +13,53 @@
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org)
 
-[![QQ群](https://img.shields.io/badge/QQ群-1085190201-12B7F5?style=flat-square&logo=qq&logoColor=white)](https://qm.qq.com/q/4vjto4V7Di)
+[![QQ Group](https://img.shields.io/badge/QQ_Group-1085190201-12B7F5?style=flat-square&logo=qq&logoColor=white)](https://qm.qq.com/q/4vjto4V7Di)
 
 ---
 
-## 🌟 功能特性
+## 🌟 Features
 
-| 功能 | 命令 | 说明 |
+| Feature | Command | Description |
 |------|------|------|
-| 🎨 **队伍染色** | `/qwq_team_color_dye <true/false>` | 根据 `team_detection` 配置读取原生 Team 或计分板分数，为玩家名添加对应队伍颜色与前缀（🔴红/🟡黄/🟢绿/🔵蓝） |
-| 📊 **侧边栏** | `/qwq_bingo_sidebar <true/false>` | 在屏幕右侧显示各队伍成员列表，每 0.5 秒自动刷新 |
+| 🎨 **Team Dyeing** | `/qwq_team_color_dye <true/false>` | Reads the native Team or scoreboard objective based on `team_detection` config, applies team color and prefix (🔴Red/🟡Yellow/🟢Green/🔵Blue) to player names |
+| 📊 **Sidebar** | `/qwq_bingo_sidebar <true/false>` | Displays team member list on the right side of the screen, auto-refreshes every 0.5s |
 
-> 💡 本插件专为 [Flytre Bingo地图](https://www.flytre.net/bingo) 设计，这里有[Flytre Bingo地图的下载链接](https://www.flytre.net/bingo)。 
-> 本插件可按配置读取 Minecraft 原生 Team 或主计分板 objective 来判断队伍，并与地图原生datapack联动。
+> 💡 This plugin is designed specifically for [Flytre Bingo](https://www.flytre.net/bingo). [Download the Flytre Bingo map here](https://www.flytre.net/bingo).
+> It reads Minecraft native Teams or the main scoreboard objective to determine teams, integrating with the map's native datapack.
 
-### 🗺️ 版本支持
+### 🖼️ Preview
 
-> 截止2026年6月3日，目前本插件支持的情况如下:
+![Preview: sidebar and chat color in Minecraft client](./doc/images/preview/preview-sidebar-chatcolor-minecraft-client-pov.png)
 
-| | |
-|---|---|
-| 🎯 **适配地图** | [![Flytre Bingo](https://img.shields.io/badge/Flytre_Bingo-62B47A?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fminecraft.svg)](https://www.flytre.net/bingo) |
-| 🌎 **地图支持版本** | 1.16.x · 1.17.x · 1.18.x · 1.19.x · 1.20.2-4 · **1.21.5** · **1.21.10** |
-| 📦 **插件支持版本** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
+### 🗺️ Version Support
 
----
-
-## 🛠 技术栈
+> As of June 3, 2026, this plugin supports:
 
 | | |
 |---|---|
-| 🧱 **服务端** | [![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
-| 📝 **语言** | [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org) |
-| 🏗 **构建** | [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org) |
+| 🎯 **Supported Map** | [![Flytre Bingo](https://img.shields.io/badge/Flytre_Bingo-62B47A?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fminecraft.svg)](https://www.flytre.net/bingo) |
+| 🌎 **Map Versions** | 1.16.x · 1.17.x · 1.18.x · 1.19.x · 1.20.2-4 · **1.21.5** · **1.21.10** |
+| 📦 **Plugin Version** | [![Spigot API](https://img.shields.io/badge/Spigot_API_1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
 
 ---
 
-## 📦 下载与安装
+## 🛠 Tech Stack
+
+| | |
+|---|---|
+| 🧱 **Server** | [![Paper](https://img.shields.io/badge/Paper-1.21.5-1F93FF?style=for-the-badge&logo=https%3A%2F%2Fraw.githubusercontent.com%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Ffor-spigot-1.21.5%2Fdoc%2Fimages%2Flogo%2Fpapermc.svg)](https://fill-ui.papermc.io/projects/paper/family/1.21) [![Spigot](https://img.shields.io/badge/Spigot-1.21.5-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://getbukkit.org/download/spigot) |
+| 📝 **Language** | [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org) |
+| 🏗 **Build** | [![Gradle](https://img.shields.io/badge/Gradle-8.8-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org) |
+
+---
+
+## 📦 Download & Installation
 
 [![Download](https://img.shields.io/badge/Download-GitHub_Releases-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster/releases)
 
-将 `.jar` 文件放入服务器的 `plugins/` 目录后重启即可。
+Place the `.jar` file in your server's `plugins/` directory and restart.
 
-默认配置如下：
+Default configuration:
 
 ```yml
 # 🎯 qwq-flytre-bingo-booster 配置
@@ -90,57 +94,57 @@ team_detection:
   scoreboard_name: teamScore
 ```
 
-`commands` 支持自定义指令名：
+`commands` — custom command names:
 
-- `team_color_dye`: 队伍染色开关命令名
-- `bingo_sidebar`: bingo 侧边栏开关命令名
+- `team_color_dye`: command name for team dye toggle
+- `bingo_sidebar`: command name for bingo sidebar toggle
 
-`features.*.enabled_on_load` 控制插件加载后是否默认自动启用功能：
+`features.*.enabled_on_load` controls whether features auto-enable on load:
 
-- `true`: 开服后自动开启
-- `false`: 保持旧行为，等手动输入指令后再开启
+- `true`: auto-enable on server start
+- `false`: keep disabled until command is run
 
-`team_detection.method` 支持两种模式：
+`team_detection.method` supports two modes:
 
-- `team`: 优先读取玩家当前 scoreboard 上的原生 Team，读不到时回退到主 scoreboard
-- `scoreboard`: 读取主 scoreboard 上指定 objective 的分数值，默认使用 `teamScore`
+- `team`: read the player's native Team from their current scoreboard first, fall back to the main scoreboard
+- `scoreboard`: read the score value from the specified objective on the main scoreboard, defaults to `teamScore`
 
 ---
 
-## 🔧 构建
+## 🔧 Build
 
-### 本地构建
+### Local Build
 
 ```bash
 ./gradlew build
 ```
 
-产物在 `build/libs/` 目录下（`*-all.jar` 为完整的 fat jar）。
+Output is in `build/libs/` (`*-all.jar` is the fat jar).
 
-### GitHub Actions 自动构建
+### GitHub Actions CI
 
 [![CI Status](https://img.shields.io/github/actions/workflow/status/VincentZyu233/qwq-flytre-bingo-booster/build.yml?branch=for-spigot-1.21.5&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster/actions)
 
 
-push 到 `main` 或 `for-*` 分支时，commit message 包含特定关键字可触发 CI：
+Pushing to `main` or `for-*` branches will trigger CI if the commit message contains specific keywords:
 
-| 关键字 | 行为 |
+| Keyword | Action |
 |--------|------|
-| `build action` | 🏗 自动构建并上传 artifact |
-| `build release` | 🏗 自动构建 + 🚀 创建 GitHub Release |
+| `build action` | 🏗 Build and upload artifact |
+| `build release` | 🏗 Build + 🚀 Create GitHub Release |
 
-示例：
+Example:
 
 ```bash
 git commit -m "aaa: some commit messages...; build action"
 git commit -m "bbb: yet other commit messages...; build release"
 ```
 
-PR 到 `main` 或 `for-*` 分支时也会触发构建（但不发布）。
+PRs to `main` or `for-*` branches also trigger builds (but not releases).
 
 ---
 
-## 💬 交流反馈
+## 💬 Feedback
 
-<p>💬 插件使用问题 / 🐛 Bug反馈 / 👨‍💻 插件开发交流，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
-<p>💡 在群里直接艾特我，回复的更快哦 ~ ✨</p>
+<p>💬 Plugin usage / 🐛 Bug reports / 👨‍💻 Development discussion — Join our QQ Group: <b>1085190201</b> 🎉</p>
+<p>💡 Mention me in the group for faster replies ~ ✨</p>

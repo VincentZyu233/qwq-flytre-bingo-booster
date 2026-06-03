@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "qwq.zyu"
-version = "0.2.2-beta.1"
+version = "0.2.2-rc.1"
 
 repositories {
     mavenCentral()

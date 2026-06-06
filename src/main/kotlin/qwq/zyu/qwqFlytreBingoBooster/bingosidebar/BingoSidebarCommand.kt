@@ -1,19 +1,21 @@
-package qwq.zyu.qwqFlytreBingoBooster.bingosidebar
+package qwq.zyu.qwqFlytreBingoBooster.bingo_sidebar
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.plugin.Plugin
-import qwq.zyu.qwqFlytreBingoBooster.config.PluginLogger
-import qwq.zyu.qwqFlytreBingoBooster.config.TeamDetector
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoPluginLogger
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoTeamDetector
 
 class BingoSidebarCommand(
     private val plugin: Plugin,
-    private val teamDetector: TeamDetector,
+    private val teamDetector: BingoTeamDetector,
     private val commandName: String,
     private val refreshIntervalTicks: Long
 ) : CommandExecutor {
     private var task: BingoSidebarTask? = null
+
+    fun isEnabled(): Boolean = task != null
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (args.size != 1) {
@@ -39,7 +41,7 @@ class BingoSidebarCommand(
         task = BingoSidebarTask(teamDetector).apply {
             runTaskTimer(plugin, 0L, refreshIntervalTicks)
         }
-        PluginLogger.info("BingoSidebar: 更新任务已开启")
+        BingoPluginLogger.info("BingoSidebar: 更新任务已开启")
         sender?.sendMessage("已经开启sidebar的更新任务")
         return true
     }
@@ -51,7 +53,7 @@ class BingoSidebarCommand(
         }
         task!!.cancel()
         task = null
-        PluginLogger.info("BingoSidebar: 更新任务已停止")
+        BingoPluginLogger.info("BingoSidebar: 更新任务已停止")
         sender?.sendMessage("已经停止sidebar更新")
         return true
     }

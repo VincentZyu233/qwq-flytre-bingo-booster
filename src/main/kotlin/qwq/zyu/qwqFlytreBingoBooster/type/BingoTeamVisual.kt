@@ -1,8 +1,8 @@
-package qwq.zyu.qwqFlytreBingoBooster.type
+package qwq.zyu.qwqFlytreBingoBooster.bingo_type
 
 import org.bukkit.ChatColor
 
-enum class TeamVisual(
+enum class BingoTeamVisual(
     val scoreValue: Int,
     val teamKey: String,
     val shortName: String,
@@ -54,11 +54,11 @@ enum class TeamVisual(
     );
 
     companion object {
-        fun fromScoreValue(scoreValue: Int): TeamVisual {
+        fun fromScoreValue(scoreValue: Int): BingoTeamVisual {
             return entries.firstOrNull { it.scoreValue == scoreValue } ?: NONE
         }
 
-        fun fromTeamKey(teamKey: String): TeamVisual {
+        fun fromTeamKey(teamKey: String): BingoTeamVisual {
             return entries.firstOrNull { it.teamKey.equals(teamKey, ignoreCase = true) } ?: NONE
         }
     }

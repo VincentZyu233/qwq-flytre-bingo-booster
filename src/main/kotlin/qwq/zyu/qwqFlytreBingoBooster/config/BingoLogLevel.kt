@@ -1,6 +1,6 @@
-package qwq.zyu.qwqFlytreBingoBooster.config
+package qwq.zyu.qwqFlytreBingoBooster.bingo_config
 
-enum class LogLevel(val priority: Int) {
+enum class BingoLogLevel(val priority: Int) {
     DEBUG(0),
     INFO(1),
     WARN(2),
@@ -8,7 +8,7 @@ enum class LogLevel(val priority: Int) {
     SILENT(4);
 
     companion object {
-        fun fromString(s: String): LogLevel {
+        fun fromString(s: String): BingoLogLevel {
             return entries.firstOrNull { it.name.equals(s, ignoreCase = true) } ?: INFO
         }
     }

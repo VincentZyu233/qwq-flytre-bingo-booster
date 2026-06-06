@@ -3,20 +3,20 @@ package qwq.zyu.qwqFlytreBingoBooster
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.PluginCommand
 import org.bukkit.plugin.java.JavaPlugin
-import qwq.zyu.qwqFlytreBingoBooster.bingosidebar.BingoSidebarCommand
-import qwq.zyu.qwqFlytreBingoBooster.config.DetectionMethod
-import qwq.zyu.qwqFlytreBingoBooster.config.LogLevel
-import qwq.zyu.qwqFlytreBingoBooster.config.PluginLogger
-import qwq.zyu.qwqFlytreBingoBooster.config.TeamDetector
-import qwq.zyu.qwqFlytreBingoBooster.effect.BingoEffectCommand
-import qwq.zyu.qwqFlytreBingoBooster.effect.BingoEffectEntry
-import qwq.zyu.qwqFlytreBingoBooster.effect.BingoEffectTask
-import qwq.zyu.qwqFlytreBingoBooster.teamcolor.TeamColorCommand
-import qwq.zyu.qwqFlytreBingoBooster.teamcolor.TeamColorTask
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoLogLevel
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoPluginLogger
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoTeamDetectionMethod
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoTeamDetector
+import qwq.zyu.qwqFlytreBingoBooster.bingo_effect.BingoEffectCommand
+import qwq.zyu.qwqFlytreBingoBooster.bingo_effect.BingoEffectEntry
+import qwq.zyu.qwqFlytreBingoBooster.bingo_effect.BingoEffectTask
+import qwq.zyu.qwqFlytreBingoBooster.bingo_sidebar.BingoSidebarCommand
+import qwq.zyu.qwqFlytreBingoBooster.bingo_teamcolor.BingoTeamColorCommand
+import qwq.zyu.qwqFlytreBingoBooster.bingo_teamcolor.BingoTeamColorTask
 
 class QwqFlytreBingoBooster : JavaPlugin() {
 
-    private lateinit var teamColorTask: TeamColorTask
+    private lateinit var teamColorTask: BingoTeamColorTask
     private lateinit var bingoSidebarCommand: BingoSidebarCommand
     private lateinit var bingoEffectTask: BingoEffectTask
     private val registeredConfigCommands = mutableListOf<String>()
@@ -26,21 +26,21 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         reloadConfig()
 
         val logLevelStr = config.getString("log_level", "info") ?: "info"
-        PluginLogger.level = LogLevel.fromString(logLevelStr)
-        PluginLogger.info("配置加载完成，日志级别: ${PluginLogger.level.name.lowercase()}")
+        BingoPluginLogger.level = BingoLogLevel.fromString(logLevelStr)
+        BingoPluginLogger.info("配置加载完成，日志级别: ${BingoPluginLogger.level.name.lowercase()}")
 
         val methodStr = config.getString("team_detection.method", "team") ?: "team"
         val sbName = config.getString("team_detection.scoreboard_name", "teamScore") ?: "teamScore"
-        val method = DetectionMethod.entries.firstOrNull { it.name.equals(methodStr, true) } ?: DetectionMethod.TEAM
-        val teamDetector = TeamDetector(method, sbName)
-        PluginLogger.info("队伍检测方式: ${method.name.lowercase()}, 计分板名: $sbName")
+        val method = BingoTeamDetectionMethod.entries.firstOrNull { it.name.equals(methodStr, true) } ?: BingoTeamDetectionMethod.TEAM
+        val teamDetector = BingoTeamDetector(method, sbName)
+        BingoPluginLogger.info("队伍检测方式: ${method.name.lowercase()}, 计分板名: $sbName")
 
         val teamColorRefreshTicks = getPositiveTicks("features.team_color_dye.refresh_interval_ticks", 10L)
         val bingoSidebarRefreshTicks = getPositiveTicks("features.bingo_sidebar.refresh_interval_ticks", 10L)
         val bingoEffectRefreshTicks = getPositiveTicks("features.bingo_effect.refresh_interval_ticks", 10L)
         val bingoEffectDurationTicks = getPositiveTicks("features.bingo_effect.apply_duration_ticks", 30L)
 
-        teamColorTask = TeamColorTask(teamDetector)
+        teamColorTask = BingoTeamColorTask(teamDetector)
         teamColorTask.runTaskTimer(this, 0L, teamColorRefreshTicks)
         bingoEffectTask = BingoEffectTask { bingoEffectDurationTicks.toInt() }
         bingoEffectTask.updateEntries(loadBingoEffectEntries())
@@ -56,7 +56,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         val enableBingoSidebarOnLoad = config.getBoolean("features.bingo_sidebar.enabled_on_load", true)
         val enableBingoEffectOnLoad = config.getBoolean("features.bingo_effect.enabled_on_load", true)
 
-        val teamColorExecutor = TeamColorCommand(teamColorTask, teamColorCommandName)
+        val teamColorExecutor = BingoTeamColorCommand(teamColorTask, teamColorCommandName)
         bingoSidebarCommand = BingoSidebarCommand(this, teamDetector, bingoSidebarCommandName, bingoSidebarRefreshTicks)
         val bingoEffectExecutor = BingoEffectCommand(this, bingoEffectTask, bingoEffectCommandName)
 
@@ -85,10 +85,15 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         }
         bingoEffectTask.enabled = enableBingoEffectOnLoad
 
-        PluginLogger.info("命令名: team_color_dye=/$teamColorCommandName, bingo_sidebar=/$bingoSidebarCommandName, bingo_effect=/$bingoEffectCommandName")
-        PluginLogger.info("默认启用: team_color_dye=$enableTeamColorOnLoad, bingo_sidebar=$enableBingoSidebarOnLoad, bingo_effect=$enableBingoEffectOnLoad")
+        server.pluginManager.registerEvents(
+            BingoStatusBroadcastListener(this, teamColorTask, bingoSidebarCommand, bingoEffectTask),
+            this
+        )
 
-        PluginLogger.info("qwq-flytre-bingo-booster 已启用")
+        BingoPluginLogger.info("命令名: team_color_dye=/$teamColorCommandName, bingo_sidebar=/$bingoSidebarCommandName, bingo_effect=/$bingoEffectCommandName")
+        BingoPluginLogger.info("默认启用: team_color_dye=$enableTeamColorOnLoad, bingo_sidebar=$enableBingoSidebarOnLoad, bingo_effect=$enableBingoEffectOnLoad")
+
+        BingoPluginLogger.info("qwq-flytre-bingo-booster 已启用")
     }
 
     override fun onDisable() {
@@ -110,7 +115,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
             } catch (_: Exception) {
             }
         }
-        PluginLogger.info("qwq-flytre-bingo-booster 已禁用")
+        BingoPluginLogger.info("qwq-flytre-bingo-booster 已禁用")
     }
 
     private fun getPositiveTicks(path: String, defaultValue: Long): Long {
@@ -122,7 +127,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         return config.getMapList("bingo_effects").mapNotNull { raw ->
             val type = raw["type"]?.toString()?.trim().orEmpty()
             if (type.isEmpty()) {
-                PluginLogger.warn("检测到空的 bingo_effects.type，已跳过")
+                BingoPluginLogger.warn("检测到空的 bingo_effects.type，已跳过")
                 return@mapNotNull null
             }
             BingoEffectEntry(
@@ -149,7 +154,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         }
 
         if (getKnownCommands().containsKey(normalizedName)) {
-            PluginLogger.warn("命令 '/$normalizedName' 已存在，跳过配置化注册")
+            BingoPluginLogger.warn("命令 '/$normalizedName' 已存在，跳过配置化注册")
             return
         }
 
@@ -160,7 +165,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
             getCommandMap().register(description.name.lowercase(), pluginCommand)
             registeredConfigCommands.add(normalizedName)
         } catch (e: Exception) {
-            PluginLogger.error("注册配置命令 '/$normalizedName' 失败: ${e.message}")
+            BingoPluginLogger.error("注册配置命令 '/$normalizedName' 失败: ${e.message}")
         }
     }
 

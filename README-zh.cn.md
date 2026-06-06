@@ -83,6 +83,9 @@
 log_level: info
 
 # 🧾 命令名配置
+# `team_color_dye` - 开关队伍染色，为玩家名添加对应队伍颜色与前缀
+# `bingo_sidebar`  - 开关右侧队伍成员侧边栏显示
+# `bingo_effect`   - 设置或关闭常驻药水效果
 commands:
   team_color_dye: qwq_bingo_team_color_dye
   bingo_sidebar: qwq_bingo_sidebar
@@ -102,18 +105,26 @@ features:
     apply_duration_ticks: 30
 
 # 💊 Bingo 常驻药水效果列表
+# 每个对象表示一条受插件管理的常驻药水效果配置
+# `enabled`         - 是否启用该效果
+# `type`            - 药水效果 ID，例如 minecraft:night_vision
+# `amplifier`       - Bukkit 内部等级值，0=1级，1=2级，2=3级，以此类推
+# `hide_particles`  - 是否隐藏粒子效果
 bingo_effects:
+  # 默认效果：急迫 4，隐藏粒子，默认启用
   - enabled: true
     type: minecraft:fast_digging
-    amplifier: 2
+    amplifier: 3
     hide_particles: true
-  - enabled: true
-    type: minecraft:night_vision
-    amplifier: 1
-    hide_particles: true
+  # 默认效果：迅捷 3，隐藏粒子，默认启用
   - enabled: true
     type: minecraft:speed
     amplifier: 2
+    hide_particles: true
+  # 默认效果：夜视 2，隐藏粒子，默认启用
+  - enabled: true
+    type: minecraft:night_vision
+    amplifier: 1
     hide_particles: true
 
 # 👥 队伍检测配置

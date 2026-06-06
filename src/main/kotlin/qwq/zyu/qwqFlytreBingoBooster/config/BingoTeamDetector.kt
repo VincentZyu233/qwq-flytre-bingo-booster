@@ -1,13 +1,13 @@
-package qwq.zyu.qwqFlytreBingoBooster.config
+package qwq.zyu.qwqFlytreBingoBooster.bingo_config
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import qwq.zyu.qwqFlytreBingoBooster.type.TeamVisual
+import qwq.zyu.qwqFlytreBingoBooster.bingo_type.BingoTeamVisual
 
-enum class DetectionMethod { TEAM, SCOREBOARD }
+enum class BingoTeamDetectionMethod { TEAM, SCOREBOARD }
 
-class TeamDetector(
-    val method: DetectionMethod,
+class BingoTeamDetector(
+    val method: BingoTeamDetectionMethod,
     val scoreboardName: String
 ) {
     private val mainScoreboard get() = Bukkit.getScoreboardManager()?.mainScoreboard
@@ -24,11 +24,11 @@ class TeamDetector(
 
     fun getTeamValue(player: Player): Int {
         return when (method) {
-            DetectionMethod.TEAM -> {
+            BingoTeamDetectionMethod.TEAM -> {
                 val teamName = resolveTeamName(player)
-                TeamVisual.fromTeamKey(teamName).scoreValue
+                BingoTeamVisual.fromTeamKey(teamName).scoreValue
             }
-            DetectionMethod.SCOREBOARD -> {
+            BingoTeamDetectionMethod.SCOREBOARD -> {
                 val scoreboard = mainScoreboard ?: return 0
                 val objective = scoreboard.getObjective(scoreboardName) ?: return 0
                 val score = objective.getScore(player.name)
@@ -39,8 +39,8 @@ class TeamDetector(
 
     fun getTeamName(player: Player): String {
         return when (method) {
-            DetectionMethod.TEAM -> resolveTeamName(player).ifBlank { "none" }
-            DetectionMethod.SCOREBOARD -> {
+            BingoTeamDetectionMethod.TEAM -> resolveTeamName(player).ifBlank { "none" }
+            BingoTeamDetectionMethod.SCOREBOARD -> {
                 val scoreboard = mainScoreboard ?: return "none"
                 scoreboard.getEntryTeam(player.name)?.name ?: "none"
             }

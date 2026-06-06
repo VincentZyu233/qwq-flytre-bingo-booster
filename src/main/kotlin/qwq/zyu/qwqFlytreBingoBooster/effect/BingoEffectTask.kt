@@ -1,4 +1,4 @@
-package qwq.zyu.qwqFlytreBingoBooster.effect
+package qwq.zyu.qwqFlytreBingoBooster.bingo_effect
 
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
-import qwq.zyu.qwqFlytreBingoBooster.config.PluginLogger
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoPluginLogger
 
 class BingoEffectTask(
     private val applyDurationTicksProvider: () -> Int
@@ -21,6 +21,8 @@ class BingoEffectTask(
     fun updateEntries(newEntries: List<BingoEffectEntry>) {
         entries = newEntries
     }
+
+    fun getEntriesSnapshot(): List<BingoEffectEntry> = entries
 
     fun removeManagedEffectsFromOnlinePlayers() {
         Bukkit.getOnlinePlayers().forEach { removeManagedEffects(it) }
@@ -49,12 +51,12 @@ class BingoEffectTask(
     private fun resolveType(typeName: String): PotionEffectType? {
         val key = NamespacedKey.fromString(typeName)
         if (key == null) {
-            PluginLogger.warn("无效药水效果ID: $typeName")
+            BingoPluginLogger.warn("无效药水效果ID: $typeName")
             return null
         }
         val type = Registry.EFFECT.get(key)
         if (type == null) {
-            PluginLogger.warn("未找到药水效果: $typeName")
+            BingoPluginLogger.warn("未找到药水效果: $typeName")
         }
         return type
     }

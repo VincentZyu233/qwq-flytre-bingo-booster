@@ -1,16 +1,16 @@
-package qwq.zyu.qwqFlytreBingoBooster.bingosidebar
+package qwq.zyu.qwqFlytreBingoBooster.bingo_sidebar
 
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
-import qwq.zyu.qwqFlytreBingoBooster.config.PluginLogger
-import qwq.zyu.qwqFlytreBingoBooster.config.TeamDetector
-import qwq.zyu.qwqFlytreBingoBooster.type.TeamVisual
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoPluginLogger
+import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoTeamDetector
+import qwq.zyu.qwqFlytreBingoBooster.bingo_type.BingoTeamVisual
 
 class BingoSidebarTask(
-    private val teamDetector: TeamDetector
+    private val teamDetector: BingoTeamDetector
 ) : BukkitRunnable() {
     private val lastEntriesByScoreboard = mutableMapOf<Scoreboard, Set<String>>()
 
@@ -19,21 +19,21 @@ class BingoSidebarTask(
     }
 
     private fun updateSidebar() {
-        val teamMemberMap = mutableMapOf<TeamVisual, MutableList<String>>()
-        val teamScoresMap = mutableMapOf<TeamVisual, Int>()
-        val teamValueMap = mutableMapOf<String, TeamVisual>()
+        val teamMemberMap = mutableMapOf<BingoTeamVisual, MutableList<String>>()
+        val teamScoresMap = mutableMapOf<BingoTeamVisual, Int>()
+        val teamValueMap = mutableMapOf<String, BingoTeamVisual>()
 
         for (player in Bukkit.getOnlinePlayers()) {
-            val teamVisual = TeamVisual.fromScoreValue(teamDetector.getTeamValue(player))
-            PluginLogger.debug("BingoSidebar: ${player.name} -> team=${teamVisual.shortName}, teamValue=${teamVisual.scoreValue}")
+            val teamVisual = BingoTeamVisual.fromScoreValue(teamDetector.getTeamValue(player))
+            BingoPluginLogger.debug("BingoSidebar: ${player.name} -> team=${teamVisual.shortName}, teamValue=${teamVisual.scoreValue}")
             teamMemberMap.getOrPut(teamVisual) { mutableListOf() }.add(player.name)
             teamScoresMap[teamVisual] = teamScoresMap.getOrDefault(teamVisual, 0) + 1
             teamValueMap[player.name] = teamVisual
         }
 
-        PluginLogger.debug("BingoSidebar: 队伍统计 -> $teamScoresMap")
+        BingoPluginLogger.debug("BingoSidebar: 队伍统计 -> $teamScoresMap")
 
-        val teamOrder = listOf(TeamVisual.RED, TeamVisual.YELLOW, TeamVisual.GREEN, TeamVisual.BLUE)
+        val teamOrder = listOf(BingoTeamVisual.RED, BingoTeamVisual.YELLOW, BingoTeamVisual.GREEN, BingoTeamVisual.BLUE)
         val currentEntries = linkedSetOf<String>()
 
         val uniqueScoreboards = Bukkit.getOnlinePlayers()
@@ -57,7 +57,7 @@ class BingoSidebarTask(
 
                 val players = teamMemberMap.getOrDefault(teamVisual, mutableListOf()).sorted()
                 for (playerName in players) {
-                    val playerTeam = teamValueMap[playerName] ?: TeamVisual.NONE
+                    val playerTeam = teamValueMap[playerName] ?: BingoTeamVisual.NONE
                     val entry = "${playerTeam.color}${playerTeam.sidebarLabel}$playerName${ChatColor.RESET}"
                     objective.getScore(entry).score = playerTeam.scoreValue
                     currentEntries.add(entry)

@@ -1,4 +1,4 @@
-package qwq.zyu.qwqFlytreBingoBooster.effect
+package qwq.zyu.qwqFlytreBingoBooster.bingo_effect
 
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor

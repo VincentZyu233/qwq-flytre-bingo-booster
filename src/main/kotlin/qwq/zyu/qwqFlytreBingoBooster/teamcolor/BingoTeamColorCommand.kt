@@ -1,12 +1,12 @@
-package qwq.zyu.qwqFlytreBingoBooster.teamcolor
+package qwq.zyu.qwqFlytreBingoBooster.bingo_teamcolor
 
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 
-class TeamColorCommand(
-    private val task: TeamColorTask,
+class BingoTeamColorCommand(
+    private val task: BingoTeamColorTask,
     private val commandName: String
 ) : CommandExecutor {
 

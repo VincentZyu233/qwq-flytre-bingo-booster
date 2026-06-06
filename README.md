@@ -102,7 +102,7 @@ features:
   bingo_effect:
     enabled_on_load: true
     refresh_interval_ticks: 10
-    apply_duration_ticks: 30
+    apply_duration_ticks: 114514
 
 # 💊 Bingo 常驻药水效果列表
 # 每个对象表示一条受插件管理的常驻药水效果配置
@@ -113,7 +113,7 @@ features:
 bingo_effects:
   # 默认效果：急迫 4，隐藏粒子，默认启用
   - enabled: true
-    type: minecraft:fast_digging
+    type: minecraft:haste
     amplifier: 3
     hide_particles: true
   # 默认效果：迅捷 3，隐藏粒子，默认启用

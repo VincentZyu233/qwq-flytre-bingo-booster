@@ -10,7 +10,7 @@ import qwq.zyu.qwqFlytreBingoBooster.bingo_config.BingoTeamDetector
 import qwq.zyu.qwqFlytreBingoBooster.bingo_effect.BingoEffectCommand
 import qwq.zyu.qwqFlytreBingoBooster.bingo_effect.BingoEffectEntry
 import qwq.zyu.qwqFlytreBingoBooster.bingo_effect.BingoEffectTask
-import qwq.zyu.qwqFlytreBingoBooster.bingo_sidebar.BingoSidebarCommand
+import qwq.zyu.qwqFlytreBingoBooster.sidebar.BingoSidebarCommand
 import qwq.zyu.qwqFlytreBingoBooster.bingo_teamcolor.BingoTeamColorCommand
 import qwq.zyu.qwqFlytreBingoBooster.bingo_teamcolor.BingoTeamColorTask
 
@@ -38,7 +38,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         val teamColorRefreshTicks = getPositiveTicks("features.team_color_dye.refresh_interval_ticks", 10L)
         val bingoSidebarRefreshTicks = getPositiveTicks("features.bingo_sidebar.refresh_interval_ticks", 10L)
         val bingoEffectRefreshTicks = getPositiveTicks("features.bingo_effect.refresh_interval_ticks", 10L)
-        val bingoEffectDurationTicks = getPositiveTicks("features.bingo_effect.apply_duration_ticks", 30L)
+        val bingoEffectDurationTicks = getPositiveTicks("features.bingo_effect.apply_duration_ticks", 114514L)
 
         teamColorTask = BingoTeamColorTask(teamDetector)
         teamColorTask.runTaskTimer(this, 0L, teamColorRefreshTicks)

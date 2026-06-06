@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import qwq.zyu.qwqFlytreBingoBooster.bingo_effect.BingoEffectTask
-import qwq.zyu.qwqFlytreBingoBooster.bingo_sidebar.BingoSidebarCommand
+import qwq.zyu.qwqFlytreBingoBooster.sidebar.BingoSidebarCommand
 import qwq.zyu.qwqFlytreBingoBooster.bingo_teamcolor.BingoTeamColorTask
 
 class BingoStatusBroadcastListener(

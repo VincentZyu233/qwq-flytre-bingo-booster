@@ -1,4 +1,4 @@
-package qwq.zyu.qwqFlytreBingoBooster.bingo_sidebar
+package qwq.zyu.qwqFlytreBingoBooster.sidebar
 
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor

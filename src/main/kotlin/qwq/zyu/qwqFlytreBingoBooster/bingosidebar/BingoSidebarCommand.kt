@@ -10,7 +10,8 @@ import qwq.zyu.qwqFlytreBingoBooster.config.TeamDetector
 class BingoSidebarCommand(
     private val plugin: Plugin,
     private val teamDetector: TeamDetector,
-    private val commandName: String
+    private val commandName: String,
+    private val refreshIntervalTicks: Long
 ) : CommandExecutor {
     private var task: BingoSidebarTask? = null
 
@@ -36,7 +37,7 @@ class BingoSidebarCommand(
             return false
         }
         task = BingoSidebarTask(teamDetector).apply {
-            runTaskTimer(plugin, 0L, 10L)
+            runTaskTimer(plugin, 0L, refreshIntervalTicks)
         }
         PluginLogger.info("BingoSidebar: 更新任务已开启")
         sender?.sendMessage("已经开启sidebar的更新任务")

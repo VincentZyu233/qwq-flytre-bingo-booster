@@ -26,10 +26,13 @@
 
 ## 🌟 功能特性
 
+> 💾 上面这三个指令的效果都可以持久化到配置文件。
+
 | 功能 | 命令 | 说明 |
 |------|------|------|
-| 🎨 **队伍染色** | `/qwq_team_color_dye <true/false>` | 根据 `team_detection` 配置读取原生 Team 或计分板分数，为玩家名添加对应队伍颜色与前缀（🔴红/🟡黄/🟢绿/🔵蓝） |
-| 📊 **侧边栏** | `/qwq_bingo_sidebar <true/false>` | 在屏幕右侧显示各队伍成员列表，每 0.5 秒自动刷新 |
+| 🎨 **队伍染色** | `/qwq_bingo_team_color_dye <true/false>` | 根据 `team_detection` 配置读取原生 Team 或计分板分数，为玩家名添加对应队伍颜色与前缀（🔴红/🟡黄/🟢绿/🔵蓝） |
+| 📊 **侧边栏** | `/qwq_bingo_sidebar <true/false>` | 在屏幕右侧显示各队伍成员列表，按配置 tick 间隔自动刷新 |
+| 💊 **常驻效果** | `/qwq_bingo_effect <true/false> <effect> <amplifier> <true/false>` | 给所有在线玩家持续补药水效果 |
 
 > 💡 本插件专为 [Flytre Bingo地图](https://www.flytre.net/bingo) 设计，这里有[Flytre Bingo地图的下载链接](https://www.flytre.net/bingo)。 
 > 本插件可按配置读取 Minecraft 原生 Team 或主计分板 objective 来判断队伍，并与地图原生datapack联动。
@@ -81,15 +84,37 @@ log_level: info
 
 # 🧾 命令名配置
 commands:
-  team_color_dye: qwq_team_color_dye
+  team_color_dye: qwq_bingo_team_color_dye
   bingo_sidebar: qwq_bingo_sidebar
+  bingo_effect: qwq_bingo_effect
 
 # 🚀 功能默认启用配置
 features:
   team_color_dye:
     enabled_on_load: true
+    refresh_interval_ticks: 10
   bingo_sidebar:
     enabled_on_load: true
+    refresh_interval_ticks: 10
+  bingo_effect:
+    enabled_on_load: true
+    refresh_interval_ticks: 10
+    apply_duration_ticks: 30
+
+# 💊 Bingo 常驻药水效果列表
+bingo_effects:
+  - enabled: true
+    type: minecraft:fast_digging
+    amplifier: 2
+    hide_particles: true
+  - enabled: true
+    type: minecraft:night_vision
+    amplifier: 1
+    hide_particles: true
+  - enabled: true
+    type: minecraft:speed
+    amplifier: 2
+    hide_particles: true
 
 # 👥 队伍检测配置
 team_detection:
@@ -105,8 +130,9 @@ team_detection:
 
 - `team_color_dye`: 队伍染色开关命令名
 - `bingo_sidebar`: bingo 侧边栏开关命令名
+- `bingo_effect`: bingo 常驻药水命令名
 
-`features.*.enabled_on_load` 控制插件加载后是否默认自动启用功能：
+`features.*.enabled_on_load` 控制插件加载后是否默认自动启用功能，`refresh_interval_ticks` 控制对应定时任务的 tick 间隔：
 
 - `true`: 开服后自动开启
 - `false`: 保持旧行为，等手动输入指令后再开启

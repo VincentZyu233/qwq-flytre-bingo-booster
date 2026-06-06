@@ -10,15 +10,37 @@ log_level: info
 
 # 🧾 命令名配置
 commands:
-  team_color_dye: qwq_team_color_dye
+  team_color_dye: qwq_bingo_team_color_dye
   bingo_sidebar: qwq_bingo_sidebar
+  bingo_effect: qwq_bingo_effect
 
 # 🚀 功能默认启用配置
 features:
   team_color_dye:
     enabled_on_load: true
+    refresh_interval_ticks: 10
   bingo_sidebar:
     enabled_on_load: true
+    refresh_interval_ticks: 10
+  bingo_effect:
+    enabled_on_load: true
+    refresh_interval_ticks: 10
+    apply_duration_ticks: 30
+
+# 💊 Bingo 常驻药水效果列表
+bingo_effects:
+  - enabled: true
+    type: minecraft:fast_digging
+    amplifier: 2
+    hide_particles: true
+  - enabled: true
+    type: minecraft:night_vision
+    amplifier: 1
+    hide_particles: true
+  - enabled: true
+    type: minecraft:speed
+    amplifier: 2
+    hide_particles: true
 
 # 👥 队伍检测配置
 team_detection:

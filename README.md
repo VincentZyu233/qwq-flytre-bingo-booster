@@ -26,10 +26,13 @@
 
 ## 🌟 Features
 
+> 💾 All three commands support persistence to the config file.
+
 | Feature | Command | Description |
 |------|------|------|
-| 🎨 **Team Dyeing** | `/qwq_team_color_dye <true/false>` | Reads the native Team or scoreboard objective based on `team_detection` config, applies team color and prefix (🔴Red/🟡Yellow/🟢Green/🔵Blue) to player names |
-| 📊 **Sidebar** | `/qwq_bingo_sidebar <true/false>` | Displays team member list on the right side of the screen, auto-refreshes every 0.5s |
+| 🎨 **Team Dyeing** | `/qwq_bingo_team_color_dye <true/false>` | Reads the native Team or scoreboard objective based on `team_detection` config, applies team color and prefix (🔴Red/🟡Yellow/🟢Green/🔵Blue) to player names |
+| 📊 **Sidebar** | `/qwq_bingo_sidebar <true/false>` | Displays team member list on the right side of the screen, auto-refreshes by configurable tick interval |
+| 💊 **Persistent Effects** | `/qwq_bingo_effect <true/false> <effect> <amplifier> <true/false>` | Continuously reapplies potion effects to all online players |
 
 > 💡 This plugin is designed specifically for [Flytre Bingo](https://www.flytre.net/bingo). [Download the Flytre Bingo map here](https://www.flytre.net/bingo).
 > It reads Minecraft native Teams or the main scoreboard objective to determine teams, integrating with the map's native datapack.
@@ -81,15 +84,37 @@ log_level: info
 
 # 🧾 命令名配置
 commands:
-  team_color_dye: qwq_team_color_dye
+  team_color_dye: qwq_bingo_team_color_dye
   bingo_sidebar: qwq_bingo_sidebar
+  bingo_effect: qwq_bingo_effect
 
 # 🚀 功能默认启用配置
 features:
   team_color_dye:
     enabled_on_load: true
+    refresh_interval_ticks: 10
   bingo_sidebar:
     enabled_on_load: true
+    refresh_interval_ticks: 10
+  bingo_effect:
+    enabled_on_load: true
+    refresh_interval_ticks: 10
+    apply_duration_ticks: 30
+
+# 💊 Bingo 常驻药水效果列表
+bingo_effects:
+  - enabled: true
+    type: minecraft:fast_digging
+    amplifier: 2
+    hide_particles: true
+  - enabled: true
+    type: minecraft:night_vision
+    amplifier: 1
+    hide_particles: true
+  - enabled: true
+    type: minecraft:speed
+    amplifier: 2
+    hide_particles: true
 
 # 👥 队伍检测配置
 team_detection:
@@ -105,8 +130,9 @@ team_detection:
 
 - `team_color_dye`: command name for team dye toggle
 - `bingo_sidebar`: command name for bingo sidebar toggle
+- `bingo_effect`: command name for persistent potion effect toggle/update
 
-`features.*.enabled_on_load` controls whether features auto-enable on load:
+`features.*.enabled_on_load` controls whether features auto-enable on load, and `refresh_interval_ticks` controls each scheduled task interval:
 
 - `true`: auto-enable on server start
 - `false`: keep disabled until command is run

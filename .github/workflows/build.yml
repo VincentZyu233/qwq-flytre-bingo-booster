@@ -211,21 +211,23 @@ jobs:
           echo "📦 JAR: $JAR_FILE"
 
       - name: Publish to Modrinth
-        uses: modrinth/upload@v1
+        uses: RubixDev/modrinth-upload@v1
         with:
           token: ${{ secrets.MODRINTH_TOKEN }}
           project_id: ${{ secrets.MODRINTH_PROJECT_ID }}
-          version_number: ${{ needs.check.outputs.version }}
-          upload_file: ${{ steps.jar.outputs.jar_file }}
+          file_path: ${{ steps.jar.outputs.jar_file }}
+          name: qwq-flytre-bingo-booster ${{ needs.check.outputs.version }}
+          version: ${{ needs.check.outputs.version }}
           game_versions: "1.21.5"
           loaders: "paper,spigot"
-          version_type: "release"
+          release_type: "release"
+          featured: false
 
       - name: Publish to CurseForge
-        uses: filunderscore/curseforge-upload@v1
+        uses: itsmeow/curseforge-upload@v3
         with:
-          api_token: ${{ secrets.CURSEFORGE_TOKEN }}
+          token: ${{ secrets.CURSEFORGE_TOKEN }}
           project_id: ${{ secrets.CURSEFORGE_PROJECT_ID }}
+          game_endpoint: "minecraft"
           file_path: ${{ steps.jar.outputs.jar_file }}
-          game_versions: "1.21.5"
           release_type: "release"

@@ -121,7 +121,7 @@ flowchart TB
 `build publish` 关键词会自动将 JAR 上传到 [Modrinth](https://modrinth.com)。
 
 1. 定位构建好的 JAR 产物
-2. 通过 [modrinth/upload](https://github.com/marketplace/actions/modrinth-upload) Action 上传
+2. 通过 [RubixDev/modrinth-upload](https://github.com/marketplace/actions/upload-to-modrinth) Action 上传
 3. 标签: `1.21.5` 游戏版本，`paper` + `spigot` 加载器
 
 ### 前置条件
@@ -148,7 +148,7 @@ flowchart TB
 `build publish` 关键词也会自动将 JAR 上传到 [CurseForge](https://curseforge.com)。
 
 1. 定位构建好的 JAR 产物
-2. 通过 [filunderscore/curseforge-upload](https://github.com/marketplace/actions/curseforge-upload) Action 上传
+2. 通过 [itsmeow/curseforge-upload](https://github.com/marketplace/actions/upload-to-curseforge) Action 上传
 3. 标签: `1.21.5` 游戏版本，`release` 类型
 
 ### 前置条件

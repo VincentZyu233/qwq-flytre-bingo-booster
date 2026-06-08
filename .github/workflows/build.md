@@ -121,7 +121,7 @@ flowchart TB
 The `build publish` keyword triggers automatic upload to [Modrinth](https://modrinth.com).
 
 1. Locates the built JAR artifact
-2. Uploads via [modrinth/upload](https://github.com/marketplace/actions/modrinth-upload) action
+2. Uploads via [RubixDev/modrinth-upload](https://github.com/marketplace/actions/upload-to-modrinth) action
 3. Tags: `1.21.5` game version, `paper` + `spigot` loaders
 
 ### Prerequisites
@@ -148,7 +148,7 @@ The `build publish` keyword triggers automatic upload to [Modrinth](https://modr
 The `build publish` keyword also triggers automatic upload to [CurseForge](https://curseforge.com).
 
 1. Locates the built JAR artifact
-2. Uploads via [filunderscore/curseforge-upload](https://github.com/marketplace/actions/curseforge-upload) action
+2. Uploads via [itsmeow/curseforge-upload](https://github.com/marketplace/actions/upload-to-curseforge) action
 3. Tags: `1.21.5` game version, `release` type
 
 ### Prerequisites

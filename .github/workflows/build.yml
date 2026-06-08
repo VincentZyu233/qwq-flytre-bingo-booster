@@ -320,7 +320,7 @@ jobs:
           project_id: ${{ secrets.CURSEFORGE_PROJECT_ID }}
           game_endpoint: "minecraft"
           file_path: ${{ steps.jar.outputs.jar_file }}
-          game_versions: "12988,11135"
+          game_versions: "12988"
           release_type: ${{ needs.check.outputs.release_type }}
           changelog: ${{ steps.publish_notes.outputs.changelog }}
           changelog_type: markdown

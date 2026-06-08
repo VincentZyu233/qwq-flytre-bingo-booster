@@ -10,8 +10,6 @@ API_BASE = "https://minecraft.curseforge.com/api/game"
 FOCUS_TERMS = (
     "1.21.5",
     "Java 21",
-    "Paper",
-    "Spigot",
     "Bukkit",
     "java",
     "minecraft",

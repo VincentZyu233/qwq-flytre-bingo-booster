@@ -155,7 +155,7 @@ The `build publish` keyword also triggers automatic upload to [CurseForge](https
 
 | Secret | Where to get | Purpose |
 |--------|--------------|---------|
-| `CURSEFORGE_TOKEN` | [CurseForge Console → API Keys](https://console.curseforge.com/?#/api-keys) | Authenticate uploads to CurseForge |
+| `CURSEFORGE_TOKEN` | [CurseForge Settings → API Keys](https://legacy.curseforge.com/account/api-tokens) | Authenticate uploads to CurseForge |
 | `CURSEFORGE_PROJECT_ID` | Your CurseForge project's dashboard → "My Projects" → URL path segment | Identifies which project to upload to |
 
 > **Create a token:**

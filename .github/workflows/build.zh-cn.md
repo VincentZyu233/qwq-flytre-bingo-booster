@@ -155,7 +155,7 @@ flowchart TB
 
 | 密钥 | 获取方式 | 用途 |
 |------|----------|------|
-| `CURSEFORGE_TOKEN` | [CurseForge 控制台 → API Keys](https://console.curseforge.com/?#/api-keys) | 认证 CurseForge 上传 |
+| `CURSEFORGE_TOKEN` | [CurseForge 设置 → API Keys](https://legacy.curseforge.com/account/api-tokens) | 认证 CurseForge 上传 |
 | `CURSEFORGE_PROJECT_ID` | CurseForge 项目后台 → "My Projects" → URL 中的数字 ID | 标识要上传的项目 |
 
 > **创建 Token:**

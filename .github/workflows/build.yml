@@ -18,6 +18,7 @@ jobs:
       should_release: ${{ steps.flags.outputs.should_release }}
       should_publish: ${{ steps.flags.outputs.should_publish }}
       version: ${{ steps.flags.outputs.version }}
+      release_type: ${{ steps.flags.outputs.release_type }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,9 +30,20 @@ jobs:
         run: |
           MSG="$COMMIT_MSG"
 
-          VERSION="v$(grep '^version' build.gradle.kts | head -1 | sed "s/.*\"\(.*\)\".*/\1/")"
+          RAW_VERSION="$(grep '^version' build.gradle.kts | head -1 | sed "s/.*\"\(.*\)\".*/\1/")"
+          VERSION="v$RAW_VERSION"
+
+          RELEASE_TYPE="release"
+          if echo "$RAW_VERSION" | grep -qi -- '-alpha'; then
+            RELEASE_TYPE="alpha"
+          elif echo "$RAW_VERSION" | grep -qi -- '-beta'; then
+            RELEASE_TYPE="beta"
+          fi
+
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "release_type=$RELEASE_TYPE" >> "$GITHUB_OUTPUT"
           echo "📦 Version: $VERSION"
+          echo "🏷️ Release type: $RELEASE_TYPE"
 
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             echo "should_build=true"    >> "$GITHUB_OUTPUT"
@@ -220,7 +232,7 @@ jobs:
           version: ${{ needs.check.outputs.version }}
           game_versions: "1.21.5"
           loaders: "paper,spigot"
-          release_type: "release"
+          release_type: ${{ needs.check.outputs.release_type }}
           featured: false
 
       - name: Publish to CurseForge
@@ -230,4 +242,4 @@ jobs:
           project_id: ${{ secrets.CURSEFORGE_PROJECT_ID }}
           game_endpoint: "minecraft"
           file_path: ${{ steps.jar.outputs.jar_file }}
-          release_type: "release"
+          release_type: ${{ needs.check.outputs.release_type }}

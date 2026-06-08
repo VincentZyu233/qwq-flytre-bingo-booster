@@ -65,7 +65,7 @@
 
 ## 📦 下载与安装
 
-[![Download](https://img.shields.io/badge/Download-GitHub_Releases-ED8106?style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/VincentZyuApps/qwq-flytre-bingo-booster/releases)
+[![Download from GitHub Release](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FVincentZyuApps%2Fqwq-flytre-bingo-booster%2Freleases%2Flatest&query=%24.tag_name&prefix=plugin%20version%20&label=download%20from%20github%20release&color=181717&style=for-the-badge&logo=spigotmc&logoColor=white)](https://github.com/VincentZyuApps/qwq-flytre-bingo-booster/releases/latest)
 
 将 `.jar` 文件放入服务器的 `plugins/` 目录后重启即可。
 

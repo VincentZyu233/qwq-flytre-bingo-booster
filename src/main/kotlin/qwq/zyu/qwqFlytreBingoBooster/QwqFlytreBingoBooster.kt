@@ -56,9 +56,17 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         val enableBingoSidebarOnLoad = config.getBoolean("features.bingo_sidebar.enabled_on_load", true)
         val enableBingoEffectOnLoad = config.getBoolean("features.bingo_effect.enabled_on_load", true)
 
-        val teamColorExecutor = BingoTeamColorCommand(teamColorTask, teamColorCommandName)
+        val permissionMode = config.getString("permission_mode", "op") ?: "op"
+        BingoPluginLogger.info("权限模式: $permissionMode")
+
+        val teamColorInner = BingoTeamColorCommand(teamColorTask, teamColorCommandName)
+        val teamColorExecutor = PermissionGuardExecutor(teamColorInner, permissionMode)
+
         bingoSidebarCommand = BingoSidebarCommand(this, teamDetector, bingoSidebarCommandName, bingoSidebarRefreshTicks)
-        val bingoEffectExecutor = BingoEffectCommand(this, bingoEffectTask, bingoEffectCommandName)
+        val bingoSidebarExecutor = PermissionGuardExecutor(bingoSidebarCommand, permissionMode)
+
+        val bingoEffectInner = BingoEffectCommand(this, bingoEffectTask, bingoEffectCommandName)
+        val bingoEffectExecutor = PermissionGuardExecutor(bingoEffectInner, permissionMode)
 
         bindConfiguredCommand(
             defaultName = "qwq_bingo_team_color_dye",
@@ -69,7 +77,7 @@ class QwqFlytreBingoBooster : JavaPlugin() {
         bindConfiguredCommand(
             defaultName = "qwq_bingo_sidebar",
             configuredName = bingoSidebarCommandName,
-            executor = bingoSidebarCommand,
+            executor = bingoSidebarExecutor,
             usage = "/$bingoSidebarCommandName <true/false>"
         )
         bindConfiguredCommand(

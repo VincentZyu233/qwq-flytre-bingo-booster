@@ -55,6 +55,20 @@ bingo_effects:
     amplifier: 1
     hide_particles: true
 
+# 🔐 权限配置
+# 控制谁能执行插件的命令
+# 可选值:
+#   op                    - 仅 OP（ops.json 中的玩家）和 Console 可执行（默认 ✅）
+#   console               - 仅服务端后台 Console 可执行，所有人（包括 OP）都不行
+#   everyone              - 所有人都可执行（不进行权限检查）
+#   <自定义权限节点>        - 使用自定义权限节点进行控制
+#                           如果安装了 LuckPerms 等权限插件，可在此处填写节点名，
+#                           然后在权限插件中为玩家或权限组赋予该节点即可，
+#                           无需将玩家设为 OP。
+#                           例: permission_mode: qwq-flytre-bingo-booster.admin
+#                                → 给玩家 / 组加 qwq-flytre-bingo-booster.admin 节点
+permission_mode: op
+
 # 👥 队伍检测配置
 team_detection:
   # 🔍 检测方式: team 或 scoreboard

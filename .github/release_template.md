@@ -21,5 +21,9 @@ __CHANGE_LOG__
 ### 🔧 Build Info
 
 - **Version**: __VERSION__
+- **Release Type**: __RELEASE_TYPE__
+- **Previous Tag**: __PREV_TAG__
+- **Previous Tag Time**: __PREV_TAG_TIME__
+- **Publish Time**: __PUBLISH_TIME__
 - **Branch**: __BRANCH__
 - **Commit**: __COMMIT_HASH__

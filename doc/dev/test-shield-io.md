@@ -16,7 +16,7 @@
 
 ### 4 — `github`
 
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyuApps/qwq-flytre-bingo-booster)
 
 ### 5 — `gitee`
 
@@ -24,7 +24,7 @@
 
 ### 6 — `githubactions`
 
-[![Actions](https://img.shields.io/badge/CI-Build-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster/actions)
+[![Actions](https://img.shields.io/badge/CI-Build-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/VincentZyuApps/qwq-flytre-bingo-booster/actions)
 
 ### 7 — `kotlin`
 
@@ -44,10 +44,10 @@
 
 ### 11 — `static/v1` (no logo)
 
-[![Minecraft Ready](https://img.shields.io/static/v1?label=Minecraft&message=Ready&color=3b7f3b&style=for-the-badge&logoColor=white)](https://github.com/VincentZyu233/qwq-flytre-bingo-booster/releases/tag/v0.1.1-beta.2)
+[![Minecraft Ready](https://img.shields.io/static/v1?label=Minecraft&message=Ready&color=3b7f3b&style=for-the-badge&logoColor=white)](https://github.com/VincentZyuApps/qwq-flytre-bingo-booster/releases/tag/v0.1.1-beta.2)
 
 ---
 
 ## Release target for testing
 
-`https://github.com/VincentZyu233/qwq-flytre-bingo-booster/releases/tag/v0.1.1-beta.2`
+`https://github.com/VincentZyuApps/qwq-flytre-bingo-booster/releases/tag/v0.1.1-beta.2`

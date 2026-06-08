@@ -1,4 +1,4 @@
-name: Build & Release
+name: Build & Release & Publish
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
     outputs:
       should_build: ${{ steps.flags.outputs.should_build }}
       should_release: ${{ steps.flags.outputs.should_release }}
+      should_publish: ${{ steps.flags.outputs.should_publish }}
       version: ${{ steps.flags.outputs.version }}
     steps:
       - name: Checkout
@@ -35,13 +36,19 @@ jobs:
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             echo "should_build=true"    >> "$GITHUB_OUTPUT"
             echo "should_release=false" >> "$GITHUB_OUTPUT"
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           BUILD=false
           RELEASE=false
+          PUBLISH=false
 
-          if echo "$MSG" | grep -qi "build release"; then
+          if echo "$MSG" | grep -qi "build publish"; then
+            BUILD=true
+            RELEASE=true
+            PUBLISH=true
+          elif echo "$MSG" | grep -qi "build release"; then
             BUILD=true
             RELEASE=true
           elif echo "$MSG" | grep -qi "build action"; then
@@ -50,8 +57,9 @@ jobs:
 
           echo "should_build=$BUILD"     >> "$GITHUB_OUTPUT"
           echo "should_release=$RELEASE" >> "$GITHUB_OUTPUT"
+          echo "should_publish=$PUBLISH" >> "$GITHUB_OUTPUT"
 
-          echo "📋 Flags: build=$BUILD release=$RELEASE"
+          echo "📋 Flags: build=$BUILD release=$RELEASE publish=$PUBLISH"
 
   build:
     name: Build plugin JAR
@@ -177,3 +185,47 @@ jobs:
             --notes-file release_notes.md \
             --latest \
             "$JAR_FILE"
+
+  publish:
+    name: Publish to Modrinth & CurseForge
+    needs: [check, build, release]
+    if: needs.check.outputs.should_publish == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: List downloaded files
+        run: ls -lh
+
+      - name: Locate JAR file
+        id: jar
+        run: |
+          JAR_FILE=$(ls qwq-flytre-bingo-booster-*.jar | head -1)
+          echo "jar_file=$JAR_FILE" >> "$GITHUB_OUTPUT"
+          echo "📦 JAR: $JAR_FILE"
+
+      - name: Publish to Modrinth
+        uses: modrinth/upload@v1
+        with:
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project_id: ${{ secrets.MODRINTH_PROJECT_ID }}
+          version_number: ${{ needs.check.outputs.version }}
+          upload_file: ${{ steps.jar.outputs.jar_file }}
+          game_versions: "1.21.5"
+          loaders: "paper,spigot"
+          version_type: "release"
+
+      - name: Publish to CurseForge
+        uses: filunderscore/curseforge-upload@v1
+        with:
+          api_token: ${{ secrets.CURSEFORGE_TOKEN }}
+          project_id: ${{ secrets.CURSEFORGE_PROJECT_ID }}
+          file_path: ${{ steps.jar.outputs.jar_file }}
+          game_versions: "1.21.5"
+          release_type: "release"

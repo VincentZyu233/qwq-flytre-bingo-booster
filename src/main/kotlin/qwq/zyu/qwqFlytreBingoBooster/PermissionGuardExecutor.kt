@@ -18,7 +18,7 @@ class PermissionGuardExecutor(
                 if (sender is ConsoleCommandSender) {
                     inner.onCommand(sender, command, label, args)
                 } else {
-                    sender.sendMessage("${ChatColor.RED}【qwq】仅支持控制台执行此命令")
+                    sender.sendMessage("${ChatColor.RED}【qwq】This command can only be executed from the console. / 仅支持控制台执行此命令")
                     true
                 }
             }
@@ -26,7 +26,7 @@ class PermissionGuardExecutor(
                 if (sender is ConsoleCommandSender || sender.isOp()) {
                     inner.onCommand(sender, command, label, args)
                 } else {
-                    sender.sendMessage("${ChatColor.RED}【qwq】你没有权限执行此命令")
+                    sender.sendMessage("${ChatColor.RED}【qwq】You don't have permission to use this command. / 你没有权限执行此命令")
                     true
                 }
             }
@@ -34,7 +34,7 @@ class PermissionGuardExecutor(
                 if (sender.hasPermission(mode)) {
                     inner.onCommand(sender, command, label, args)
                 } else {
-                    sender.sendMessage("${ChatColor.RED}【qwq】你没有权限执行此命令（需要权限节点: $mode）")
+                    sender.sendMessage("${ChatColor.RED}【qwq】You don't have permission to use this command (required node: $mode). / 你没有权限执行此命令（需要权限节点: $mode）")
                     true
                 }
             }

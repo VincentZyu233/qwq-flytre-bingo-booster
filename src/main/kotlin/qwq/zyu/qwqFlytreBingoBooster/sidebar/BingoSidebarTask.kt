@@ -51,7 +51,7 @@ class BingoSidebarTask(
 
             currentEntries.clear()
             for (teamVisual in teamOrder) {
-                val teamLine = "${teamVisual.sidebarLabel}队"
+                val teamLine = "↓${teamVisual.sidebarLabel}Team队↓"
                 objective.getScore(teamLine).score = teamVisual.scoreValue
                 currentEntries.add(teamLine)
 

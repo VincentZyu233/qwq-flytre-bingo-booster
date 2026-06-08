@@ -6,7 +6,7 @@ CONFIG_YML = PROJECT_ROOT / "src" / "main" / "resources" / "config.yml"
 
 README_FILES = {
     PROJECT_ROOT / "README.md": "Default configuration:",
-    PROJECT_ROOT / "README-zh.cn.md": "默认配置如下：",
+    PROJECT_ROOT / "README.zh-cn.md": "默认配置如下：",
 }
 
 
